@@ -14,6 +14,7 @@
 		964442201648461D00497C2E /* SJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9644421F1648461D00497C2E /* SJAppDelegate.m */; };
 		964442231648461E00497C2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964442211648461E00497C2E /* MainMenu.xib */; };
 		9644422C164846C700497C2E /* SJAddressBookAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9644422B164846C700497C2E /* SJAddressBookAccessor.m */; };
+		964442321648522A00497C2E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964442311648522A00497C2E /* AddressBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		964442221648461E00497C2E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		9644422A164846C700497C2E /* SJAddressBookAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAddressBookAccessor.h; sourceTree = "<group>"; };
 		9644422B164846C700497C2E /* SJAddressBookAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAddressBookAccessor.m; sourceTree = "<group>"; };
+		964442311648522A00497C2E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964442321648522A00497C2E /* AddressBook.framework in Frameworks */,
 				9644420D1648461D00497C2E /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +69,7 @@
 		9644420B1648461D00497C2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				964442311648522A00497C2E /* AddressBook.framework */,
 				9644420C1648461D00497C2E /* Cocoa.framework */,
 				9644420E1648461D00497C2E /* Other Frameworks */,
 			);
@@ -312,6 +316,7 @@
 				964442281648461E00497C2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

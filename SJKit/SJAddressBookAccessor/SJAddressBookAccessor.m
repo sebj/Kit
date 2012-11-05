@@ -28,13 +28,23 @@ static SJAddressBookAccessor *sharedSingleton;
     return sharedSingleton;
 }
 
-- (void)openPerson:(NSString*)name {
+
+
+- (void)showPerson:(NSString*)name allowingEditing:(BOOL)allowEdit {
     NSString *fullName = [self fullNameForPart:name];
     ABPerson *thePerson = [self personWithFullName:fullName];
     
-    NSString *stringURL = [NSString stringWithFormat:@"addressbook://%@", [thePerson uniqueId]];
+    NSString *args = nil;
+    if (thePerson != nil) {
+        if (allowEdit) {
+            args = [NSString stringWithFormat:@"%@?edit",[thePerson uniqueId]];
+        } else {
+            args = [thePerson uniqueId];
+        }
+    }
     
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:stringURL]];
+    NSString *urlString = [NSString stringWithFormat:@"addressbook://%@", args];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
 }
 
 
@@ -43,7 +53,7 @@ static SJAddressBookAccessor *sharedSingleton;
     NSArray *possibles = [self searchForValue:[fullName componentsSeparatedByString:@" "][0] forProperty:kABFirstNameProperty];
     
     for (ABPerson *thePerson in possibles) {
-        if (person == nil) {
+        if (person != nil) {
             break;
         }
         if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]]) {
@@ -131,7 +141,6 @@ static SJAddressBookAccessor *sharedSingleton;
     
     for (NSString *property in [ABPerson properties]) {
         id valueForProperty = [rightPerson valueForProperty:property];
-        NSLog(@"Value: %@ for property: %@", valueForProperty, property);
         if (valueForProperty != nil) {
             returnProps[property] = valueForProperty;
         }

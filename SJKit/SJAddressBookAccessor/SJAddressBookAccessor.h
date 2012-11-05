@@ -12,7 +12,7 @@
 
 + (SJAddressBookAccessor*)sharedAccessor;
 
-- (void)openPerson:(NSString*)name;
+- (void)showPerson:(NSString*)name allowingEditing:(BOOL)allowEdit;
 
 - (ABPerson*)personWithFullName:(NSString*)fullName;
 
