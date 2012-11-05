@@ -1,10 +1,8 @@
-//
+
 //  SJAddressBookAccessor.m
-//  Waiter
-//
+
 //  Created by Seb Jachec on 05/11/2012.
 //  Copyright (c) 2012 Seb Jachec. All rights reserved.
-//
 
 #import "SJAddressBookAccessor.h"
 #import <AddressBook/AddressBook.h>
@@ -30,42 +28,6 @@ static SJAddressBookAccessor *sharedSingleton;
 
 
 
-- (void)showPerson:(NSString*)name allowingEditing:(BOOL)allowEdit {
-    NSString *fullName = [self fullNameForPart:name];
-    ABPerson *thePerson = [self personWithFullName:fullName];
-    
-    NSString *args = nil;
-    if (thePerson != nil) {
-        if (allowEdit) {
-            args = [NSString stringWithFormat:@"%@?edit",[thePerson uniqueId]];
-        } else {
-            args = [thePerson uniqueId];
-        }
-    }
-    
-    NSString *urlString = [NSString stringWithFormat:@"addressbook://%@", args];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
-}
-
-
-- (ABPerson*)personWithFullName:(NSString*)fullName {
-    ABPerson *person = nil;
-    NSArray *possibles = [self searchForValue:[fullName componentsSeparatedByString:@" "][0] forProperty:kABFirstNameProperty];
-    
-    for (ABPerson *thePerson in possibles) {
-        if (person != nil) {
-            break;
-        }
-        if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]]) {
-            person = thePerson;
-        }
-    }
-    
-    return person;
-}
-
-
-
 - (NSString*)fullNameForPart:(NSString*)value {
     if ([[value componentsSeparatedByString:@" "] count] == 2) {
         return value;
@@ -81,6 +43,8 @@ static SJAddressBookAccessor *sharedSingleton;
         return [NSString stringWithFormat:@"%@ %@",[self firstNameForLastName:value],value];
     }
 }
+
+
 
 - (BOOL)isFirstName:(NSString*)value {
     NSArray *people = [self searchForValue:value forProperty:kABLastNameProperty];
@@ -155,6 +119,60 @@ static SJAddressBookAccessor *sharedSingleton;
 
 - (NSDictionary*)propertiesForPersonWithLastName:(NSString*)value {
     return [self propertiesForPersonWithName:[self firstNameForLastName:value]];
+}
+
+
+
+- (BOOL)personExistsInAddressbookWithName:(NSString*)value {
+    ABPerson *thePerson = nil;
+    thePerson = [self personWithFullName:value];
+    
+    if (thePerson == nil) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+
+
+- (ABPerson*)personWithFullName:(NSString*)fullName {
+    ABPerson *person = nil;
+    NSArray *possibles = [self searchForValue:[fullName componentsSeparatedByString:@" "][0] forProperty:kABFirstNameProperty];
+    
+    for (ABPerson *thePerson in possibles) {
+        if (person != nil) {
+            break;
+        }
+        if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]]) {
+            person = thePerson;
+        }
+    }
+    
+    if (person != nil) {
+        return person;
+    } else {
+        return nil;
+    }
+}
+
+
+
+- (void)showPerson:(NSString*)name allowingEditing:(BOOL)allowEdit {
+    NSString *fullName = [self fullNameForPart:name];
+    ABPerson *thePerson = [self personWithFullName:fullName];
+    
+    NSString *args = nil;
+    if (thePerson != nil) {
+        if (allowEdit) {
+            args = [NSString stringWithFormat:@"%@?edit",[thePerson uniqueId]];
+        } else {
+            args = [thePerson uniqueId];
+        }
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"addressbook://%@", args];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
 }
 
 
