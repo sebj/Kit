@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961A82F916498BA30061C9AC /* WolframAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A82F716498BA30061C9AC /* WolframAlpha.m */; };
 		9644420D1648461D00497C2E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9644420C1648461D00497C2E /* Cocoa.framework */; };
 		964442171648461D00497C2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 964442151648461D00497C2E /* InfoPlist.strings */; };
 		964442191648461D00497C2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 964442181648461D00497C2E /* main.m */; };
@@ -18,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		961A82F616498BA30061C9AC /* WolframAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlpha.h; path = WolframAlpha/WolframAlpha.h; sourceTree = "<group>"; };
+		961A82F716498BA30061C9AC /* WolframAlpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WolframAlpha.m; path = WolframAlpha/WolframAlpha.m; sourceTree = "<group>"; };
+		961A82F816498BA30061C9AC /* WolframAlphaDataTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlphaDataTypes.h; path = WolframAlpha/WolframAlphaDataTypes.h; sourceTree = "<group>"; };
 		964442081648461D00497C2E /* SJKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9644420C1648461D00497C2E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9644420F1648461D00497C2E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -49,6 +53,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		961A82F416498B970061C9AC /* WolframAlpha */ = {
+			isa = PBXGroup;
+			children = (
+				961A82F816498BA30061C9AC /* WolframAlphaDataTypes.h */,
+				961A82F616498BA30061C9AC /* WolframAlpha.h */,
+				961A82F716498BA30061C9AC /* WolframAlpha.m */,
+			);
+			name = WolframAlpha;
+			sourceTree = "<group>";
+		};
 		964441FD1648461D00497C2E = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +103,7 @@
 		964442121648461D00497C2E /* SJKit */ = {
 			isa = PBXGroup;
 			children = (
+				961A82F416498B970061C9AC /* WolframAlpha */,
 				96444229164846C700497C2E /* SJAddressBookAccessor */,
 				9644421E1648461D00497C2E /* SJAppDelegate.h */,
 				9644421F1648461D00497C2E /* SJAppDelegate.m */,
@@ -187,6 +202,7 @@
 				964442191648461D00497C2E /* main.m in Sources */,
 				964442201648461D00497C2E /* SJAppDelegate.m in Sources */,
 				9644422C164846C700497C2E /* SJAddressBookAccessor.m in Sources */,
+				961A82F916498BA30061C9AC /* WolframAlpha.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

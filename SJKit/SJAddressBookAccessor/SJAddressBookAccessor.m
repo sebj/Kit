@@ -1,8 +1,7 @@
 
 //  SJAddressBookAccessor.m
 
-//  Created by Seb Jachec on 05/11/2012.
-//  Copyright (c) 2012 Seb Jachec. All rights reserved.
+//  Seb Jachec
 
 #import "SJAddressBookAccessor.h"
 #import <AddressBook/AddressBook.h>
@@ -14,6 +13,8 @@
 
 static SJAddressBookAccessor *sharedSingleton;
 
+#pragma mark -
+#pragma mark Basics
 + (SJAddressBookAccessor*)sharedAccessor
 {
     static BOOL initialized = NO;
@@ -27,7 +28,8 @@ static SJAddressBookAccessor *sharedSingleton;
 }
 
 
-
+#pragma mark -
+#pragma mark Public methods
 - (NSString*)fullNameForPart:(NSString*)value {
     if ([[value componentsSeparatedByString:@" "] count] == 2) {
         return value;
@@ -176,7 +178,8 @@ static SJAddressBookAccessor *sharedSingleton;
 }
 
 
-
+#pragma mark -
+#pragma mark Private methods
 - (NSArray*)searchForValue:(NSString*)value forProperty:(NSString*)property {
     ABAddressBook *book = [ABAddressBook sharedAddressBook];
     ABSearchElement *searchElement = [ABPerson searchElementForProperty:property

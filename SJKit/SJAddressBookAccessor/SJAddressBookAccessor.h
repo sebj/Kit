@@ -1,8 +1,7 @@
 
 //  SJAddressBookAccessor.h
 
-//  Created by Seb Jachec on 05/11/2012.
-//  Copyright (c) 2012 Seb Jachec. All rights reserved.
+//  Seb Jachec
 
 #import <Foundation/Foundation.h>
 #import <AddressBook/ABPerson.h>
