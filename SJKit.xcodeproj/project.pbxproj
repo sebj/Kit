@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		961A82F916498BA30061C9AC /* WolframAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A82F716498BA30061C9AC /* WolframAlpha.m */; };
+		961A83081649AD890061C9AC /* SJAddressBookAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A83071649AD890061C9AC /* SJAddressBookAccessor.m */; };
+		961A830D1649AD910061C9AC /* WolframAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A830B1649AD910061C9AC /* WolframAlpha.m */; };
 		9644420D1648461D00497C2E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9644420C1648461D00497C2E /* Cocoa.framework */; };
 		964442171648461D00497C2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 964442151648461D00497C2E /* InfoPlist.strings */; };
 		964442191648461D00497C2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 964442181648461D00497C2E /* main.m */; };
 		9644421D1648461D00497C2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9644421B1648461D00497C2E /* Credits.rtf */; };
 		964442201648461D00497C2E /* SJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9644421F1648461D00497C2E /* SJAppDelegate.m */; };
 		964442231648461E00497C2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964442211648461E00497C2E /* MainMenu.xib */; };
-		9644422C164846C700497C2E /* SJAddressBookAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9644422B164846C700497C2E /* SJAddressBookAccessor.m */; };
 		964442321648522A00497C2E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964442311648522A00497C2E /* AddressBook.framework */; };
+		96B2A75B16999E9300A9FDDC /* SJView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B2A75A16999E9300A9FDDC /* SJView.m */; };
+		96B2A75E16999E9E00A9FDDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		961A82F616498BA30061C9AC /* WolframAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlpha.h; path = WolframAlpha/WolframAlpha.h; sourceTree = "<group>"; };
-		961A82F716498BA30061C9AC /* WolframAlpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WolframAlpha.m; path = WolframAlpha/WolframAlpha.m; sourceTree = "<group>"; };
-		961A82F816498BA30061C9AC /* WolframAlphaDataTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlphaDataTypes.h; path = WolframAlpha/WolframAlphaDataTypes.h; sourceTree = "<group>"; };
+		961A83061649AD890061C9AC /* SJAddressBookAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJAddressBookAccessor.h; path = SJAddressBookAccessor/SJAddressBookAccessor.h; sourceTree = SOURCE_ROOT; };
+		961A83071649AD890061C9AC /* SJAddressBookAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJAddressBookAccessor.m; path = SJAddressBookAccessor/SJAddressBookAccessor.m; sourceTree = SOURCE_ROOT; };
+		961A830A1649AD910061C9AC /* WolframAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlpha.h; path = WolframAlpha/WolframAlpha.h; sourceTree = SOURCE_ROOT; };
+		961A830B1649AD910061C9AC /* WolframAlpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WolframAlpha.m; path = WolframAlpha/WolframAlpha.m; sourceTree = SOURCE_ROOT; };
+		961A830C1649AD910061C9AC /* WolframAlphaDataTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlphaDataTypes.h; path = WolframAlpha/WolframAlphaDataTypes.h; sourceTree = SOURCE_ROOT; };
 		964442081648461D00497C2E /* SJKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9644420C1648461D00497C2E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9644420F1648461D00497C2E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -35,9 +39,10 @@
 		9644421E1648461D00497C2E /* SJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJAppDelegate.h; sourceTree = "<group>"; };
 		9644421F1648461D00497C2E /* SJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJAppDelegate.m; sourceTree = "<group>"; };
 		964442221648461E00497C2E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		9644422A164846C700497C2E /* SJAddressBookAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAddressBookAccessor.h; sourceTree = "<group>"; };
-		9644422B164846C700497C2E /* SJAddressBookAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAddressBookAccessor.m; sourceTree = "<group>"; };
 		964442311648522A00497C2E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		96B2A75916999E9300A9FDDC /* SJView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJView.h; sourceTree = "<group>"; };
+		96B2A75A16999E9300A9FDDC /* SJView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJView.m; sourceTree = "<group>"; };
+		96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96B2A75E16999E9E00A9FDDC /* QuartzCore.framework in Frameworks */,
 				964442321648522A00497C2E /* AddressBook.framework in Frameworks */,
 				9644420D1648461D00497C2E /* Cocoa.framework in Frameworks */,
 			);
@@ -56,9 +62,9 @@
 		961A82F416498B970061C9AC /* WolframAlpha */ = {
 			isa = PBXGroup;
 			children = (
-				961A82F816498BA30061C9AC /* WolframAlphaDataTypes.h */,
-				961A82F616498BA30061C9AC /* WolframAlpha.h */,
-				961A82F716498BA30061C9AC /* WolframAlpha.m */,
+				961A830C1649AD910061C9AC /* WolframAlphaDataTypes.h */,
+				961A830A1649AD910061C9AC /* WolframAlpha.h */,
+				961A830B1649AD910061C9AC /* WolframAlpha.m */,
 			);
 			name = WolframAlpha;
 			sourceTree = "<group>";
@@ -83,6 +89,7 @@
 		9644420B1648461D00497C2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */,
 				964442311648522A00497C2E /* AddressBook.framework */,
 				9644420C1648461D00497C2E /* Cocoa.framework */,
 				9644420E1648461D00497C2E /* Other Frameworks */,
@@ -103,6 +110,7 @@
 		964442121648461D00497C2E /* SJKit */ = {
 			isa = PBXGroup;
 			children = (
+				96B2A75816999E9300A9FDDC /* SJView */,
 				961A82F416498B970061C9AC /* WolframAlpha */,
 				96444229164846C700497C2E /* SJAddressBookAccessor */,
 				9644421E1648461D00497C2E /* SJAppDelegate.h */,
@@ -128,10 +136,19 @@
 		96444229164846C700497C2E /* SJAddressBookAccessor */ = {
 			isa = PBXGroup;
 			children = (
-				9644422A164846C700497C2E /* SJAddressBookAccessor.h */,
-				9644422B164846C700497C2E /* SJAddressBookAccessor.m */,
+				961A83061649AD890061C9AC /* SJAddressBookAccessor.h */,
+				961A83071649AD890061C9AC /* SJAddressBookAccessor.m */,
 			);
 			path = SJAddressBookAccessor;
+			sourceTree = "<group>";
+		};
+		96B2A75816999E9300A9FDDC /* SJView */ = {
+			isa = PBXGroup;
+			children = (
+				96B2A75916999E9300A9FDDC /* SJView.h */,
+				96B2A75A16999E9300A9FDDC /* SJView.m */,
+			);
+			path = SJView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +218,9 @@
 			files = (
 				964442191648461D00497C2E /* main.m in Sources */,
 				964442201648461D00497C2E /* SJAppDelegate.m in Sources */,
-				9644422C164846C700497C2E /* SJAddressBookAccessor.m in Sources */,
-				961A82F916498BA30061C9AC /* WolframAlpha.m in Sources */,
+				961A83081649AD890061C9AC /* SJAddressBookAccessor.m in Sources */,
+				961A830D1649AD910061C9AC /* WolframAlpha.m in Sources */,
+				96B2A75B16999E9300A9FDDC /* SJView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
