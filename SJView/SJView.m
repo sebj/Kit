@@ -8,6 +8,9 @@
 
 @implementation SJView
 
+#pragma mark -
+#pragma mark Basics
+
 - (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle {
     id toReturn = [self initWithFrame:frameRect];
     
@@ -32,6 +35,9 @@
         self.baseDrawBlock();
     }
 }
+
+#pragma mark -
+#pragma mark Fade to Gradient
 
 - (void)fadeToGradient:(NSGradient*)newGradient Duration:(int)animDuration {
     //Get the current view gradient (image)
@@ -85,16 +91,19 @@
     [self fadeToGradient:newGradient Duration:0.25];
 }
 
+#pragma mark -
+#pragma mark Image from View
+
 - (NSImage *)image
 {
     NSSize mySize = self.bounds.size;
-    NSSize imgSize = NSMakeSize( mySize.width, mySize.height );
+    NSSize imgSize = NSMakeSize(mySize.width, mySize.height);
     
-    NSBitmapImageRep *bir = [self bitmapImageRepForCachingDisplayInRect:[self bounds]];
+    NSBitmapImageRep *bir = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
     [bir setSize:imgSize];
-    [self cacheDisplayInRect:[self bounds] toBitmapImageRep:bir];
+    [self cacheDisplayInRect:self.bounds toBitmapImageRep:bir];
     
-    NSImage* image = [[NSImage alloc]initWithSize:imgSize];
+    NSImage *image = [[NSImage alloc] initWithSize:imgSize];
     [image addRepresentation:bir];
     return image;
 }
