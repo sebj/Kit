@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		961A83081649AD890061C9AC /* SJAddressBookAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A83071649AD890061C9AC /* SJAddressBookAccessor.m */; };
 		961A830D1649AD910061C9AC /* WolframAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A830B1649AD910061C9AC /* WolframAlpha.m */; };
+		962C1027169A0F9C00BCC963 /* CIImage+NSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 962C1023169A0F9C00BCC963 /* CIImage+NSImage.m */; };
+		962C1028169A0F9C00BCC963 /* NSImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 962C1026169A0F9C00BCC963 /* NSImage+Additions.m */; };
 		9644420D1648461D00497C2E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9644420C1648461D00497C2E /* Cocoa.framework */; };
 		964442171648461D00497C2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 964442151648461D00497C2E /* InfoPlist.strings */; };
 		964442191648461D00497C2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 964442181648461D00497C2E /* main.m */; };
@@ -26,6 +28,10 @@
 		961A830A1649AD910061C9AC /* WolframAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlpha.h; path = WolframAlpha/WolframAlpha.h; sourceTree = SOURCE_ROOT; };
 		961A830B1649AD910061C9AC /* WolframAlpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WolframAlpha.m; path = WolframAlpha/WolframAlpha.m; sourceTree = SOURCE_ROOT; };
 		961A830C1649AD910061C9AC /* WolframAlphaDataTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolframAlphaDataTypes.h; path = WolframAlpha/WolframAlphaDataTypes.h; sourceTree = SOURCE_ROOT; };
+		962C1022169A0F9C00BCC963 /* CIImage+NSImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIImage+NSImage.h"; sourceTree = "<group>"; };
+		962C1023169A0F9C00BCC963 /* CIImage+NSImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIImage+NSImage.m"; sourceTree = "<group>"; };
+		962C1025169A0F9C00BCC963 /* NSImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Additions.h"; sourceTree = "<group>"; };
+		962C1026169A0F9C00BCC963 /* NSImage+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Additions.m"; sourceTree = "<group>"; };
 		964442081648461D00497C2E /* SJKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9644420C1648461D00497C2E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9644420F1648461D00497C2E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -69,6 +75,24 @@
 			name = WolframAlpha;
 			sourceTree = "<group>";
 		};
+		962C1021169A0F9C00BCC963 /* CIImage+NSImage */ = {
+			isa = PBXGroup;
+			children = (
+				962C1022169A0F9C00BCC963 /* CIImage+NSImage.h */,
+				962C1023169A0F9C00BCC963 /* CIImage+NSImage.m */,
+			);
+			path = "CIImage+NSImage";
+			sourceTree = SOURCE_ROOT;
+		};
+		962C1024169A0F9C00BCC963 /* NSImage+Additions */ = {
+			isa = PBXGroup;
+			children = (
+				962C1025169A0F9C00BCC963 /* NSImage+Additions.h */,
+				962C1026169A0F9C00BCC963 /* NSImage+Additions.m */,
+			);
+			path = "NSImage+Additions";
+			sourceTree = SOURCE_ROOT;
+		};
 		964441FD1648461D00497C2E = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +134,8 @@
 		964442121648461D00497C2E /* SJKit */ = {
 			isa = PBXGroup;
 			children = (
+				962C1021169A0F9C00BCC963 /* CIImage+NSImage */,
+				962C1024169A0F9C00BCC963 /* NSImage+Additions */,
 				965A664C16999FB80089E95F /* SJView */,
 				961A82F416498B970061C9AC /* WolframAlpha */,
 				96444229164846C700497C2E /* SJAddressBookAccessor */,
@@ -221,6 +247,8 @@
 				961A83081649AD890061C9AC /* SJAddressBookAccessor.m in Sources */,
 				961A830D1649AD910061C9AC /* WolframAlpha.m in Sources */,
 				965A664F16999FB80089E95F /* SJView.m in Sources */,
+				962C1027169A0F9C00BCC963 /* CIImage+NSImage.m in Sources */,
+				962C1028169A0F9C00BCC963 /* NSImage+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

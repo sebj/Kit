@@ -76,7 +76,7 @@
     self.animations = [NSDictionary dictionaryWithObject:trans forKey:@"subviews"];
     
     //Start the animation, fading from the NSImageView with the current view, to the one with the new one.
-    [[self animator] replaceSubview:currentImageView with:newImageView];
+    [self replaceSubview:currentImageView with:newImageView];
     
     [self setDrawBlock:^(void){
         //Get ourselves drawing the new gradient
