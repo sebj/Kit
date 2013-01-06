@@ -71,7 +71,7 @@
     CATransition *trans = [CATransition animation];
     
     trans.duration = animDuration;
-    trans.timingFunction =  [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
+    trans.timingFunction =  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     trans.type = kCATransitionFade;
     self.animations = [NSDictionary dictionaryWithObject:trans forKey:@"subviews"];
     
@@ -83,6 +83,7 @@
         [newGradient drawInRect:NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height) angle:-90];
     }];
     
+    //Remove the NSImageView, to draw as normal
     [newImageView removeFromSuperview];
 }
 
@@ -96,13 +97,15 @@
 
 - (NSImage *)image
 {
-    NSSize mySize = self.bounds.size;
-    NSSize imgSize = NSMakeSize(mySize.width, mySize.height);
+    //Get the size the image needs to be - this current view's size
+    NSSize imgSize = NSMakeSize(self.bounds.size.width, self.bounds.size.height);
     
+    //Get an NSBitmapImageRep for everything in this view's bounds
     NSBitmapImageRep *bir = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
     [bir setSize:imgSize];
     [self cacheDisplayInRect:self.bounds toBitmapImageRep:bir];
     
+    //Return an NSImage, using the bitmap image representation (^)
     NSImage *image = [[NSImage alloc] initWithSize:imgSize];
     [image addRepresentation:bir];
     return image;
