@@ -18,6 +18,8 @@
 		964442201648461D00497C2E /* SJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9644421F1648461D00497C2E /* SJAppDelegate.m */; };
 		964442231648461E00497C2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964442211648461E00497C2E /* MainMenu.xib */; };
 		964442321648522A00497C2E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964442311648522A00497C2E /* AddressBook.framework */; };
+		9650C72C16A2279E00866714 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9650C72B16A2279E00866714 /* Carbon.framework */; };
+		9650C73516A22A6A00866714 /* NSString+Contains.m in Sources */ = {isa = PBXBuildFile; fileRef = 9650C73416A22A6A00866714 /* NSString+Contains.m */; };
 		965A664F16999FB80089E95F /* SJView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965A664E16999FB80089E95F /* SJView.m */; };
 		966256FD169B820700DD108A /* SJExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 966256FC169B820700DD108A /* SJExpandingTextView.m */; };
 		96B2A75E16999E9E00A9FDDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */; };
@@ -47,6 +49,9 @@
 		9644421F1648461D00497C2E /* SJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJAppDelegate.m; sourceTree = "<group>"; };
 		964442221648461E00497C2E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		964442311648522A00497C2E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		9650C72B16A2279E00866714 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		9650C73316A22A6A00866714 /* NSString+Contains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Contains.h"; sourceTree = "<group>"; };
+		9650C73416A22A6A00866714 /* NSString+Contains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Contains.m"; sourceTree = "<group>"; };
 		965A664D16999FB80089E95F /* SJView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJView.h; sourceTree = "<group>"; };
 		965A664E16999FB80089E95F /* SJView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJView.m; sourceTree = "<group>"; };
 		966256FB169B820700DD108A /* SJExpandingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJExpandingTextView.h; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9650C72C16A2279E00866714 /* Carbon.framework in Frameworks */,
 				96B2A75E16999E9E00A9FDDC /* QuartzCore.framework in Frameworks */,
 				964442321648522A00497C2E /* AddressBook.framework in Frameworks */,
 				9644420D1648461D00497C2E /* Cocoa.framework in Frameworks */,
@@ -116,6 +122,7 @@
 		9644420B1648461D00497C2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9650C72B16A2279E00866714 /* Carbon.framework */,
 				96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */,
 				964442311648522A00497C2E /* AddressBook.framework */,
 				9644420C1648461D00497C2E /* Cocoa.framework */,
@@ -137,12 +144,13 @@
 		964442121648461D00497C2E /* SJKit */ = {
 			isa = PBXGroup;
 			children = (
-				962C1021169A0F9C00BCC963 /* CIImage+NSImage */,
-				962C1024169A0F9C00BCC963 /* NSImage+Additions */,
-				966256FA169B820700DD108A /* SJExpandingTextView */,
-				965A664C16999FB80089E95F /* SJView */,
 				961A82F416498B970061C9AC /* WolframAlpha */,
 				96444229164846C700497C2E /* SJAddressBookAccessor */,
+				966256FA169B820700DD108A /* SJExpandingTextView */,
+				965A664C16999FB80089E95F /* SJView */,
+				962C1021169A0F9C00BCC963 /* CIImage+NSImage */,
+				962C1024169A0F9C00BCC963 /* NSImage+Additions */,
+				9650C73216A22A6A00866714 /* NSString+Contains */,
 				9644421E1648461D00497C2E /* SJAppDelegate.h */,
 				9644421F1648461D00497C2E /* SJAppDelegate.m */,
 				964442211648461E00497C2E /* MainMenu.xib */,
@@ -171,6 +179,15 @@
 			);
 			path = SJAddressBookAccessor;
 			sourceTree = "<group>";
+		};
+		9650C73216A22A6A00866714 /* NSString+Contains */ = {
+			isa = PBXGroup;
+			children = (
+				9650C73316A22A6A00866714 /* NSString+Contains.h */,
+				9650C73416A22A6A00866714 /* NSString+Contains.m */,
+			);
+			path = "NSString+Contains";
+			sourceTree = SOURCE_ROOT;
 		};
 		965A664C16999FB80089E95F /* SJView */ = {
 			isa = PBXGroup;
@@ -263,6 +280,7 @@
 				962C1027169A0F9C00BCC963 /* CIImage+NSImage.m in Sources */,
 				962C1028169A0F9C00BCC963 /* NSImage+Additions.m in Sources */,
 				966256FD169B820700DD108A /* SJExpandingTextView.m in Sources */,
+				9650C73516A22A6A00866714 /* NSString+Contains.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
