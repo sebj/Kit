@@ -8,8 +8,7 @@
 
 @implementation SJView
 
-#pragma mark -
-#pragma mark Basics
+#pragma mark - Basics
 
 - (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle {
     id toReturn = [self initWithFrame:frameRect];
@@ -36,8 +35,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Fade to Gradient
+#pragma mark - Fade to Gradient
 
 - (void)fadeToGradient:(NSGradient*)newGradient Duration:(int)animDuration {
     //Get the current view gradient (image)
@@ -92,8 +90,7 @@
     [self fadeToGradient:newGradient Duration:0.25];
 }
 
-#pragma mark -
-#pragma mark Image from View
+#pragma mark - Image from View
 
 - (NSImage *)image
 {

@@ -3,47 +3,51 @@
 
 // Seb Jachec
 
-#import <Carbon/Carbon.h>
 #import "SJExpandingTextView.h"
 
 @implementation SJExpandingTextView
 
-- (void)setAction:(SEL)action Sender:(id)sender {
+- (void)setAction:(SEL)theAction Sender:(id)sender {
     actionSender = sender;
-    _action = action;
+    action = theAction;
 }
 
 - (void)keyUp:(NSEvent *)theEvent {
     UInt16 key = [theEvent keyCode];
     
-    if (key == kVK_Return) {
-        if (actionSender && _action) {
-            
-            NSString *stringSelector = NSStringFromSelector(_action);
+    if ((_actionKey && key == _actionKey) || (!_actionKey && key == 36)) {
+        if (actionSender && action) {
+            NSLog(@"Enter");
+            NSString *stringSelector = NSStringFromSelector(action);
             
             //Could be action:(id)sender for example
             if ([[stringSelector substringFromIndex:stringSelector.length-1] isEqualToString:@":"]) {
                 @try {
                     #pragma clang diagnostic push
                     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    [actionSender performSelector:_action withObject:self];
+                    [actionSender performSelector:action withObject:self];
                     #pragma clang diagnostic pop
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"SJExpandingTextView: Unable to performSelector: withObject:self . Selector '%@'. Object: '%@'",NSStringFromSelector(_action), [actionSender description]);
+                    NSLog(@"SJExpandingTextView: Unable to performSelector: withObject:self . Selector '%@'. Object: '%@'",NSStringFromSelector(action), [actionSender description]);
                 }
             } else {
                 //If not, performSelector: as normal
                 @try {
                     #pragma clang diagnostic push
                     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    [actionSender performSelector:_action];
+                    [actionSender performSelector:action];
                     #pragma clang diagnostic pop
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"SJExpandingTextView: Unable to performSelector: . Selector '%@'. Object: '%@'",NSStringFromSelector(_action), [actionSender description]);
+                    NSLog(@"SJExpandingTextView: Unable to performSelector: . Selector '%@'. Object: '%@'",NSStringFromSelector(action), [actionSender description]);
                 }
             }
+        }
+        
+        if (_clearsTextOnEnter) {
+            self.string = @"";
+            [self didChangeText];
         }
     }
     

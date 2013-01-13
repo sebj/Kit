@@ -13,8 +13,7 @@
 
 static SJAddressBookAccessor *sharedSingleton;
 
-#pragma mark -
-#pragma mark Basics
+#pragma mark - Basics
 + (SJAddressBookAccessor*)sharedAccessor
 {
     static BOOL initialized = NO;
@@ -28,8 +27,7 @@ static SJAddressBookAccessor *sharedSingleton;
 }
 
 
-#pragma mark -
-#pragma mark Public methods
+#pragma mark - Public methods
 - (NSString*)fullNameForPart:(NSString*)value {
     if ([[value componentsSeparatedByString:@" "] count] == 2) {
         return value;
@@ -178,8 +176,7 @@ static SJAddressBookAccessor *sharedSingleton;
 }
 
 
-#pragma mark -
-#pragma mark Private methods
+#pragma mark - Private methods
 - (NSArray*)searchForValue:(NSString*)value forProperty:(NSString*)property {
     ABAddressBook *book = [ABAddressBook sharedAddressBook];
     ABSearchElement *searchElement = [ABPerson searchElementForProperty:property

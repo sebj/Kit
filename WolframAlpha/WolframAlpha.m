@@ -9,8 +9,7 @@
 
 @synthesize appID, delegate;
 
-#pragma mark -
-#pragma mark Basics
+#pragma mark - Basics
 - (id)initWithAppID:(NSString*)value {
     if (self) {
         [self setAppID:value];
@@ -27,8 +26,7 @@
     return delegate;
 }
 
-#pragma mark -
-#pragma mark Useful methods
+#pragma mark - Useful methods
 - (NSString*)encodedToPercentEscapedString:(NSString *)string {
     return (__bridge NSString *)
     CFURLCreateStringByAddingPercentEscapes(NULL,
@@ -66,8 +64,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Public methods
+#pragma mark - Public methods
 - (NSData*)sendQueryWithString:(NSString*)value metric:(BOOL)isMetric {
     value = [self encodedToPercentEscapedString:value];
     if (isMetric) {

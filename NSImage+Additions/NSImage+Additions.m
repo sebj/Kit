@@ -8,8 +8,7 @@
 
 @implementation NSImage (Additions)
 
-#pragma mark -
-#pragma mark Image Adjustment
+#pragma mark - Image Adjustment
 
 - (NSImage*)setSaturation:(NSNumber*)num {
     return [self setSaturation:num Brightness:nil Contrast:nil];
@@ -133,8 +132,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark True Size
+#pragma mark - True Size
 
 - (void)setTrueSize:(NSSize)theSize {
     [self setSize:theSize];
@@ -155,8 +153,7 @@
     return size;
 }
 
-#pragma mark -
-#pragma mark Mask
+#pragma mark - Mask
 
 + (NSImage*)mask:(NSImage *)maskImage Image:(NSImage *)image {
     
@@ -187,8 +184,7 @@
     return result;
 }
 
-#pragma mark -
-#pragma mark imageWithColor:Size:
+#pragma mark - imageWithColor:Size:
 
 + (NSImage *)imageWithColor:(NSColor *)color Size:(NSSize)size {
     
