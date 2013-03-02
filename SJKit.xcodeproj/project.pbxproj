@@ -23,6 +23,7 @@
 		966256FD169B820700DD108A /* SJExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 966256FC169B820700DD108A /* SJExpandingTextView.m */; };
 		96985F2F16E24B73006EA072 /* adn.png in Resources */ = {isa = PBXBuildFile; fileRef = 96985F2C16E24B73006EA072 /* adn.png */; };
 		96985F3016E24B73006EA072 /* SJADNShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96985F2E16E24B73006EA072 /* SJADNShareController.m */; };
+		96A89FEE16E24FC4003475E9 /* adn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96A89FED16E24FC4003475E9 /* adn@2x.png */; };
 		96B2A75E16999E9E00A9FDDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		96985F2C16E24B73006EA072 /* adn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adn.png; sourceTree = "<group>"; };
 		96985F2D16E24B73006EA072 /* SJADNShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJADNShareController.h; sourceTree = "<group>"; };
 		96985F2E16E24B73006EA072 /* SJADNShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJADNShareController.m; sourceTree = "<group>"; };
+		96A89FED16E24FC4003475E9 /* adn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adn@2x.png"; sourceTree = "<group>"; };
 		96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				96985F2C16E24B73006EA072 /* adn.png */,
+				96A89FED16E24FC4003475E9 /* adn@2x.png */,
 				96985F2D16E24B73006EA072 /* SJADNShareController.h */,
 				96985F2E16E24B73006EA072 /* SJADNShareController.m */,
 			);
@@ -275,6 +278,7 @@
 				9644421D1648461D00497C2E /* Credits.rtf in Resources */,
 				964442231648461E00497C2E /* MainMenu.xib in Resources */,
 				96985F2F16E24B73006EA072 /* adn.png in Resources */,
+				96A89FEE16E24FC4003475E9 /* adn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
