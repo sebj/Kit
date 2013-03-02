@@ -21,6 +21,8 @@
 		9650C73516A22A6A00866714 /* NSString+Contains.m in Sources */ = {isa = PBXBuildFile; fileRef = 9650C73416A22A6A00866714 /* NSString+Contains.m */; };
 		965A664F16999FB80089E95F /* SJView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965A664E16999FB80089E95F /* SJView.m */; };
 		966256FD169B820700DD108A /* SJExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 966256FC169B820700DD108A /* SJExpandingTextView.m */; };
+		96985F2F16E24B73006EA072 /* adn.png in Resources */ = {isa = PBXBuildFile; fileRef = 96985F2C16E24B73006EA072 /* adn.png */; };
+		96985F3016E24B73006EA072 /* SJADNShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96985F2E16E24B73006EA072 /* SJADNShareController.m */; };
 		96B2A75E16999E9E00A9FDDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,9 @@
 		965A664E16999FB80089E95F /* SJView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJView.m; sourceTree = "<group>"; };
 		966256FB169B820700DD108A /* SJExpandingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJExpandingTextView.h; sourceTree = "<group>"; };
 		966256FC169B820700DD108A /* SJExpandingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJExpandingTextView.m; sourceTree = "<group>"; };
+		96985F2C16E24B73006EA072 /* adn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adn.png; sourceTree = "<group>"; };
+		96985F2D16E24B73006EA072 /* SJADNShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJADNShareController.h; sourceTree = "<group>"; };
+		96985F2E16E24B73006EA072 /* SJADNShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJADNShareController.m; sourceTree = "<group>"; };
 		96B2A75D16999E9E00A9FDDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -140,6 +145,7 @@
 		964442121648461D00497C2E /* SJKit */ = {
 			isa = PBXGroup;
 			children = (
+				96985F2B16E24B73006EA072 /* SJADNShareController */,
 				961A82F416498B970061C9AC /* WolframAlpha */,
 				96444229164846C700497C2E /* SJAddressBookAccessor */,
 				966256FA169B820700DD108A /* SJExpandingTextView */,
@@ -203,6 +209,16 @@
 			path = SJExpandingTextView;
 			sourceTree = SOURCE_ROOT;
 		};
+		96985F2B16E24B73006EA072 /* SJADNShareController */ = {
+			isa = PBXGroup;
+			children = (
+				96985F2C16E24B73006EA072 /* adn.png */,
+				96985F2D16E24B73006EA072 /* SJADNShareController.h */,
+				96985F2E16E24B73006EA072 /* SJADNShareController.m */,
+			);
+			path = SJADNShareController;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -258,6 +274,7 @@
 				964442171648461D00497C2E /* InfoPlist.strings in Resources */,
 				9644421D1648461D00497C2E /* Credits.rtf in Resources */,
 				964442231648461E00497C2E /* MainMenu.xib in Resources */,
+				96985F2F16E24B73006EA072 /* adn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +294,7 @@
 				962C1028169A0F9C00BCC963 /* NSImage+Additions.m in Sources */,
 				966256FD169B820700DD108A /* SJExpandingTextView.m in Sources */,
 				9650C73516A22A6A00866714 /* NSString+Contains.m in Sources */,
+				96985F3016E24B73006EA072 /* SJADNShareController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
