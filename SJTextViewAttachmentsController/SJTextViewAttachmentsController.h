@@ -7,15 +7,32 @@
 
 @interface SJTextViewAttachmentsController : NSObject <NSTextStorageDelegate>
 
+/**
+ * NSTextView to monitor
+ */
 @property (strong) NSTextView *textView;
-//Max file size (bytes) to load & store in array
-@property int maxFileSize;
 
+
+/**
+ * NSFileWrapper for every attachment
+ */
 @property (strong) NSArray *attachments;
+
+/**
+ * NSImage for every image found
+ */
 @property (strong) NSArray *images;
 
 
-//Initalises SJTextViewAttachmentsController with a text view, and sets it as the text view's text storage delegate
+/**
+ * The methood initalises a new SJTextViewAttachmentsController with a text view,
+ * and sets it as the text view's text storage delegate
+ *
+ * @param aTextView NSTextView to use
+ *
+ * @return An initialised SJTextViewAttachmentsController
+ *
+ */
 - (id)initWithTextView:(NSTextView*)aTextView;
 
 @end

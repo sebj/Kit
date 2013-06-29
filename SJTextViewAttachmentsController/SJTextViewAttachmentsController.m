@@ -14,7 +14,6 @@
         
         _attachments = @[];
         _images = @[];
-        _maxFileSize = 0;
     }
     return self;
 }
@@ -23,10 +22,11 @@
     if ([super init]) {
         _attachments = @[];
         _images = @[];
-        _maxFileSize = 0;
     }
     return self;
 }
+
+#pragma mark -
 
 - (BOOL)isImage:(NSString*)aPathExtension {
     NSArray *imageExtensions = @[@"tif",@"tiff",@"jpg",@"jpeg",@"jp2",@"exr",@"pdf",@"png",@"nef",@"gif",@"psd",@"psb"];
@@ -47,31 +47,29 @@
     if (note.object != text)
         return;
     
-    NSUInteger length = text.length;
     NSRange effectiveRange = NSMakeRange(0, 0);
     
-    while (NSMaxRange(effectiveRange) < length) {
+    while (NSMaxRange(effectiveRange) < text.length) {
         NSTextAttachment *attachment = [text attribute:NSAttachmentAttributeName atIndex:NSMaxRange(effectiveRange) effectiveRange:&effectiveRange];
         NSString *pathExtension = attachment.fileWrapper.preferredFilename.pathExtension;
         
         if (attachment) {
-            int sizeInBytes = (int)[attachment.fileWrapper.fileAttributes valueForKey:@"NSFileSize"];
-            if (_maxFileSize != 0) {
-                if (sizeInBytes <= _maxFileSize) {
-                    if ([self isImage:pathExtension]) {
-                        NSImage *theImage = [[NSImage alloc] initWithData:attachment.fileWrapper.regularFileContents];
-                        [images addObject:theImage];
-                    } else {
-                        [attachments addObject:attachment.fileWrapper.regularFileContents];
-                    }
-                }
+            if ([self isImage:pathExtension]) {
+                NSImage *theImage = [[NSImage alloc] initWithData:attachment.fileWrapper.regularFileContents];
+                [images addObject:theImage];
             }
+            
+            [attachments addObject:attachment.fileWrapper];
         }
     }
     
-    //To counter a strange glitch where the last image attachment is duplicated
-    if (images.count>1) {
+    //To counter a strange glitch in which the last attachment is duplicated
+    if (images.count > 1) {
         [images removeLastObject];
+    }
+    
+    if (attachments.count > 1) {
+        [attachments removeLastObject];
     }
     
     _attachments = attachments.copy;
