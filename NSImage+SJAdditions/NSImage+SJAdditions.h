@@ -7,13 +7,13 @@
 
 @interface NSImage (SJAdditions)
 
-- (void)drawWithBlock:(void (^)())drawBlock;
+- (void)drawWithBlock:(void (^)())theDrawBlock;
 
-+ (NSImage*)blendImage:(NSImage*)top Over:(NSImage*)bottom BlendMode:(CGBlendMode)blendMode Opacity:(float)opacity;
++ (NSImage*)blendImage:(NSImage*)theTopImage Over:(NSImage*)theBottomImage BlendMode:(CGBlendMode)theBlendMode Alpha:(float)theAlpha;
 
-+ (NSImage*)mask:(NSImage *)maskImage Image:(NSImage *)image;
++ (NSImage*)mask:(NSImage *)theMask Image:(NSImage *)theImage;
 
-+ (NSImage *)imageWithColor:(NSColor *)color Size:(NSSize)size;
++ (NSImage *)imageWithColor:(NSColor *)theColor Size:(NSSize)theSize;
 
 - (NSImage*)flippedHorizontally;
 - (NSImage*)flippedVertically;

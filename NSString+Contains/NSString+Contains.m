@@ -7,16 +7,15 @@
 
 @implementation NSString (Contains)
 
-- (BOOL)containsString:(NSString *)string
-               options:(NSStringCompareOptions)options {
+- (BOOL)containsString:(NSString *)theString options:(NSStringCompareOptions)theOptions {
     
-    NSRange theRange = [self rangeOfString:string options:options];
+    NSRange theRange = [self rangeOfString:theString options:theOptions];
     
     return ((theRange.location != NSNotFound) ? YES : NO);
 }
 
-- (BOOL)containsString:(NSString *)string {
-    return [self containsString:string options:0];
+- (BOOL)containsString:(NSString *)theString {
+    return [self containsString:theString options:0];
 }
 
 @end

@@ -3,33 +3,27 @@
 
 //  Seb Jachec
 
-#import "SJAddressBookAccessor.h"
 #import <AddressBook/AddressBook.h>
-#import <AddressBook/ABPerson.h>
-#import <AddressBook/ABPeoplePickerC.h>
-#import <AddressBook/ABPeoplePickerView.h>
+#import "SJAddressBookAccessor.h"
 
 @implementation SJAddressBookAccessor
 
-static SJAddressBookAccessor *sharedSingleton;
-
 #pragma mark - Basics
-+ (SJAddressBookAccessor*)sharedAccessor
-{
-    static BOOL initialized = NO;
-    if(!initialized)
-    {
-        initialized = YES;
-        sharedSingleton = [[SJAddressBookAccessor alloc] init];
-    }
++ (SJAddressBookAccessor*)shared {
+    static dispatch_once_t pred;
+    static SJAddressBookAccessor *shared = nil;
     
-    return sharedSingleton;
+    dispatch_once(&pred, ^() {
+        shared = [[SJAddressBookAccessor alloc] init];
+    });
+    
+    return shared;
 }
 
 
 #pragma mark - Public methods
 - (NSString*)fullNameForPart:(NSString*)value {
-    if ([[value componentsSeparatedByString:@" "] count] == 2) {
+    if ([value componentsSeparatedByString:@" "].count == 2) {
         return value;
     }
     
@@ -75,7 +69,7 @@ static SJAddressBookAccessor *sharedSingleton;
         return [self lastNameForFirstName:value];
     }
     
-    if (rightPerson != nil) {
+    if (rightPerson) {
         return [rightPerson valueForProperty:kABFirstNameProperty];
     }
 }
@@ -91,7 +85,7 @@ static SJAddressBookAccessor *sharedSingleton;
         return [self lastNameForFirstName:value];
     }
     
-    if (rightPerson != nil) {
+    if (rightPerson) {
         return [rightPerson valueForProperty:kABLastNameProperty];
     }
 }
@@ -105,7 +99,7 @@ static SJAddressBookAccessor *sharedSingleton;
     
     for (NSString *property in [ABPerson properties]) {
         id valueForProperty = [rightPerson valueForProperty:property];
-        if (valueForProperty != nil) {
+        if (valueForProperty) {
             returnProps[property] = valueForProperty;
         }
     }
@@ -127,7 +121,7 @@ static SJAddressBookAccessor *sharedSingleton;
     ABPerson *thePerson = nil;
     thePerson = [self personWithFullName:value];
     
-    if (thePerson == nil) {
+    if (!thePerson) {
         return NO;
     } else {
         return YES;
@@ -141,7 +135,7 @@ static SJAddressBookAccessor *sharedSingleton;
     NSArray *possibles = [self searchForValue:[fullName componentsSeparatedByString:@" "][0] forProperty:kABFirstNameProperty];
     
     for (ABPerson *thePerson in possibles) {
-        if (person != nil) {
+        if (person) {
             break;
         }
         if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]]) {
@@ -149,7 +143,7 @@ static SJAddressBookAccessor *sharedSingleton;
         }
     }
     
-    if (person != nil) {
+    if (person) {
         return person;
     } else {
         return nil;

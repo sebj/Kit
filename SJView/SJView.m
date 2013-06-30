@@ -26,8 +26,7 @@
     return toReturn;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
-{    
+- (void)drawRect:(NSRect)dirtyRect {    
     if (self.drawBlock) {
         self.drawBlock();
     } else if (self.baseDrawBlock) {
@@ -39,27 +38,27 @@
 
 - (void)fadeToGradient:(NSGradient*)newGradient Duration:(int)animDuration {
     //Get the current view gradient (image)
-    NSImage *current = [self image];
+    NSImage *current = self.image;
     
     //Make an NSImageView with the current gradient image
-    NSImageView *currentImageView = [[NSImageView alloc] initWithFrame:self.frame];
+    NSImageView *currentImageView = [[NSImageView alloc] initWithFrame:_frame];
     [currentImageView setImage:current];
     
     [self addSubview:currentImageView];
     
     
     //Make a new view drawing the new gradient, then get an image from it
-    SJView *tempView = [[SJView alloc] initWithFrame:self.frame];
+    SJView *tempView = [[SJView alloc] initWithFrame:_frame];
     [tempView setDrawBlock:^(void){
         //Ask it to draw the new gradient
-        [newGradient drawInRect:NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height) angle:-90];
+        [newGradient drawInRect:NSMakeRect(0, 0, _bounds.size.width, _bounds.size.height) angle:-90];
         [self setNeedsDisplay:YES];
     }];
     
     NSImage *new = [tempView image];
     
     //Make a new NSImageView, with the new gradient image
-    NSImageView *newImageView = [[NSImageView alloc] initWithFrame:self.frame];
+    NSImageView *newImageView = [[NSImageView alloc] initWithFrame:_frame];
     [newImageView setImage:new];
     
     
@@ -78,7 +77,7 @@
     
     [self setDrawBlock:^(void){
         //Get ourselves drawing the new gradient
-        [newGradient drawInRect:NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height) angle:-90];
+        [newGradient drawInRect:NSMakeRect(0, 0, _bounds.size.width, _bounds.size.height) angle:-90];
     }];
     
     //Remove the NSImageView, to draw as normal
@@ -92,19 +91,18 @@
 
 #pragma mark - Image from View
 
-- (NSImage *)image
-{
+- (NSImage *)image {
     //Get the size the image needs to be - this current view's size
-    NSSize imgSize = NSMakeSize(self.bounds.size.width, self.bounds.size.height);
+    NSSize imgSize = NSMakeSize(_bounds.size.width, _bounds.size.height);
     
     //Get an NSBitmapImageRep for everything in this view's bounds
-    NSBitmapImageRep *bir = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
-    [bir setSize:imgSize];
-    [self cacheDisplayInRect:self.bounds toBitmapImageRep:bir];
+    NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:_bounds];
+    bitmapRep.size = imgSize;
+    [self cacheDisplayInRect:_bounds toBitmapImageRep:bitmapRep];
     
     //Return an NSImage, using the bitmap image representation (^)
     NSImage *image = [[NSImage alloc] initWithSize:imgSize];
-    [image addRepresentation:bir];
+    [image addRepresentation:bitmapRep];
     return image;
 }
 

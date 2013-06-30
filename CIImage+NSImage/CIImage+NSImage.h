@@ -9,6 +9,11 @@
 
 - (NSImage *)NSImage;
 
-+ (CIImage *)imageWithNSImage:(NSImage*)nsimg;
+/**
+ * @param theImage An NSImage to initialise a CIImage with
+ *
+ * @return A CIIImage
+ */
++ (CIImage *)imageWithNSImage:(NSImage*)theImage;
 
 @end

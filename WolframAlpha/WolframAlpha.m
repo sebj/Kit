@@ -10,16 +10,16 @@
 @synthesize appID, delegate;
 
 #pragma mark - Basics
-- (id)initWithAppID:(NSString*)value {
+- (id)initWithAppID:(NSString*)theID {
     if (self) {
-        [self setAppID:value];
+        appID = theID;
     }
     
     return self;
 }
 
-- (void)setDelegate:(id)val {
-    delegate = val;
+- (void)setDelegate:(id)theValue {
+    delegate = theValue;
 }
 
 - (id)delegate {
@@ -27,17 +27,12 @@
 }
 
 #pragma mark - Useful methods
-- (NSString*)encodedToPercentEscapedString:(NSString *)string {
-    return (__bridge NSString *)
-    CFURLCreateStringByAddingPercentEscapes(NULL,
-                                            (CFStringRef) string,
-                                            NULL,
-                                            (CFStringRef) @"!*'();:@&=+$,/?%#[]",
-                                            kCFStringEncodingUTF8);
+- (NSString*)encodedToPercentEscapedString:(NSString *)theString {
+    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)theString,NULL,(CFStringRef) @"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
 }
 
 - (NSData*)sendQueryWithArgs:(NSString*)args {
-    if (appID != nil) {
+    if (appID) {
         NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.wolframalpha.com/v2/query?%@&appid=%@",args,appID]];
         NSURLRequest *request = [NSURLRequest requestWithURL:requestURL];
         NSURLResponse *response;
@@ -65,23 +60,19 @@
 }
 
 #pragma mark - Public methods
-- (NSData*)sendQueryWithString:(NSString*)value metric:(BOOL)isMetric {
-    value = [self encodedToPercentEscapedString:value];
-    if (isMetric) {
-        return [self sendQueryWithArgs:[NSString stringWithFormat:@"input=%@&units=metric",value]];
-    } else {
-        return [self sendQueryWithArgs:[NSString stringWithFormat:@"input=%@&units=imperial",value]];
-    }
+- (NSData*)sendQueryWithString:(NSString*)theValue metric:(BOOL)isMetric {
+    theValue = [self encodedToPercentEscapedString:theValue];
+    
+    return [self sendQueryWithArgs:[NSString stringWithFormat:(isMetric? @"input=%@&units=metric" : @"input=%@&units=imperial"),theValue]];
 }
 
-- (NSData*)sendQueryWithString:(NSString*)value {
-    value = [self encodedToPercentEscapedString:value];
-    return [self sendQueryWithArgs:[NSString stringWithFormat:@"input=%@",value]];
+- (NSData*)sendQueryWithString:(NSString*)theValue {
+    return [self sendQueryWithArgs:[NSString stringWithFormat:@"input=%@",[self encodedToPercentEscapedString:theValue]]];
 }
 
-- (BOOL)valideQuery:(NSString*)value {
-    value = [self encodedToPercentEscapedString:value];
-    NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.wolframalpha.com/v2/validatequery?input=%@&appid=%@",value,appID]];
+- (BOOL)validQuery:(NSString*)theQuery {
+    theQuery = [self encodedToPercentEscapedString:theQuery];
+    NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.wolframalpha.com/v2/validatequery?input=%@&appid=%@",theQuery,appID]];
     NSURLRequest *request = [NSURLRequest requestWithURL:requestURL];
     NSURLResponse *response;
     NSError *err;
@@ -96,11 +87,7 @@
         validString = [validString stringByReplacingOccurrencesOfString:@"<?xml version='1.0' encoding='UTF-8'?>\n<validatequeryresult success='" withString:@""];
         validString = [validString componentsSeparatedByString:@"'"][0];
         
-        if ([validString isEqualToString:@"true"]) {
-            return YES;
-        } else {
-            return NO;
-        }
+        return [validString isEqualToString:@"true"];
     }
 }
 

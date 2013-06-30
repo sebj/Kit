@@ -7,17 +7,17 @@
 
 @implementation NSImage (SJAdditions)
 
-- (void)drawWithBlock:(void (^)())drawBlock {
+- (void)drawWithBlock:(void (^)())theDrawBlock {
     [self lockFocus];
-    drawBlock();
+    theDrawBlock();
     [self unlockFocus];
 }
 
 #pragma mark -
 
-+ (NSImage*)blendImage:(NSImage*)top Over:(NSImage*)bottom BlendMode:(CGBlendMode)blendMode Opacity:(float)opacity {
-    CGImageRef topRef = top.CGImage;
-    CGImageRef bottomRef = bottom.CGImage;
++ (NSImage*)blendImage:(NSImage*)theTopImage Over:(NSImage*)theBottomImage BlendMode:(CGBlendMode)theBlendMode Alpha:(float)theAlpha {
+    CGImageRef topRef = theTopImage.CGImage;
+    CGImageRef bottomRef = theBottomImage.CGImage;
     
     CGColorSpaceRef genericColorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef currentContext = CGBitmapContextCreate(NULL,
@@ -28,17 +28,17 @@
                                                         CGImageGetColorSpace(bottomRef),
                                                         CGImageGetBitmapInfo(bottomRef));
     
-    CGRect drawRect = CGRectMake(0, 0, bottom.size.width, bottom.size.height);
+    CGRect drawRect = CGRectMake(0, 0, theBottomImage.size.width, theBottomImage.size.height);
     CGContextDrawImage(currentContext, drawRect, bottomRef);
     
-    CGContextSetBlendMode(currentContext, blendMode);
-    CGContextSetAlpha(currentContext, opacity);
+    CGContextSetBlendMode(currentContext, theBlendMode);
+    CGContextSetAlpha(currentContext, theAlpha);
     
     CGContextDrawImage(currentContext, drawRect, topRef);
     
     CGImageRef retRef = CGBitmapContextCreateImage(currentContext);
     
-    NSImage *result = [[NSImage alloc] initWithCGImage:retRef size:top.size];
+    NSImage *result = [[NSImage alloc] initWithCGImage:retRef size:theTopImage.size];
     
     CFRelease(genericColorSpace);
     CGImageRelease(topRef);
@@ -50,9 +50,9 @@
 
 #pragma mark -
 
-+ (NSImage*)mask:(NSImage *)maskImage Image:(NSImage *)image {
++ (NSImage*)mask:(NSImage *)theMask Image:(NSImage *)theImage {
     
-    CGImageRef maskRef = maskImage.CGImage;
+    CGImageRef maskRef = theMask.CGImage;
     
 	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
                                         CGImageGetHeight(maskRef),
@@ -61,12 +61,12 @@
                                         CGImageGetBytesPerRow(maskRef),
                                         CGImageGetDataProvider(maskRef), NULL, false);
     
-    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)theImage.TIFFRepresentation, NULL);
     CGImageRef imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
     
 	CGImageRef masked = CGImageCreateWithMask(imageRef, mask);
     
-	NSImage *result = [[NSImage alloc] initWithCGImage:masked size:image.size];
+	NSImage *result = [[NSImage alloc] initWithCGImage:masked size:theImage.size];
     
     CGImageRelease(mask);
 	CGImageRelease(masked);
@@ -79,13 +79,13 @@
 
 #pragma mark -
 
-+ (NSImage *)imageWithColor:(NSColor *)color Size:(NSSize)size {
++ (NSImage *)imageWithColor:(NSColor *)theColor Size:(NSSize)theSize {
     
-    NSImage *retval = [[NSImage alloc] initWithSize:size];
+    NSImage *retval = [[NSImage alloc] initWithSize:theSize];
     
     [retval drawWithBlock:^{
-        [color set];
-        NSRectFill(NSMakeRect(0,0,size.width,size.height));
+        [theColor set];
+        NSRectFill(NSMakeRect(0,0,theSize.width,theSize.height));
     }];
     
     return retval;
@@ -133,7 +133,7 @@
 #pragma mark -
 
 - (CGImageRef)CGImage {
-    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)[self TIFFRepresentation], NULL);
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)self.TIFFRepresentation, NULL);
     CGImageRef imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
     
     CFRelease(imageSource);

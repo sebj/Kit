@@ -19,6 +19,11 @@
 @property (strong) NSArray *attachments;
 
 /**
+ * Character index, ie. location, for every attachment
+ */
+@property (strong) NSArray *attachmentsIndices;
+
+/**
  * NSImage for every image found
  */
 @property (strong) NSArray *images;
@@ -34,5 +39,12 @@
  *
  */
 - (id)initWithTextView:(NSTextView*)aTextView;
+
+/**
+ * @param index The character index to check
+ *
+ * @return The NSTextAttachment at that index, or nil if none
+ */
+- (NSTextAttachment*)attachmentAtIndex:(NSUInteger)index;
 
 @end

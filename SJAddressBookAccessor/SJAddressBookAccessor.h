@@ -8,7 +8,7 @@
 
 @interface SJAddressBookAccessor : NSObject
 
-+ (SJAddressBookAccessor*)sharedAccessor;
++ (SJAddressBookAccessor*)shared;
 
 
 - (NSString*)fullNameForPart:(NSString*)value;

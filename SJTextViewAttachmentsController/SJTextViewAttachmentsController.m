@@ -29,15 +29,41 @@
 #pragma mark -
 
 - (BOOL)isImage:(NSString*)aPathExtension {
-    NSArray *imageExtensions = @[@"tif",@"tiff",@"jpg",@"jpeg",@"jp2",@"exr",@"pdf",@"png",@"nef",@"gif",@"psd",@"psb"];
+    NSArray *imageExtensions = @[@"tif",@"tiff",@"jpg",@"jpeg",@"jp2",@"exr",@"pdf",@"png",@"nef",@"raw",@"gif",@"psd",@"psb"];
     
-    if ([imageExtensions containsObject:aPathExtension]) {
+    if ([imageExtensions containsObject:aPathExtension.lowercaseString]) {
         return YES;
     } else {
         return NO;
     }
 }
 
+- (void)calculateAttachmentsIndices {
+    NSAttributedString *text = _textView.textStorage;
+    
+    NSMutableArray *newIndices = [[NSMutableArray alloc] init];
+    
+    int index = 0;
+    while (index < text.length) {
+        NSRange range = NSMakeRange(0, 0);
+        NSTextAttachment *attachment = [text attribute:NSAttachmentAttributeName atIndex:index effectiveRange:&range];
+        
+        if (attachment) {
+            [newIndices addObject:@(index)];
+        }
+        
+        index++;
+    }
+    
+    //To counter a strange glitch in which the last attachment is duplicated
+    if (newIndices.count > 1) {
+        [newIndices removeLastObject];
+    }
+    
+    _attachmentsIndices = newIndices;
+}
+
+//Idea of looping through, useful code: http://www.dejal.com/blog/2007/11/cocoa-custom-attachment-text-view
 - (void)textStorageWillProcessEditing:(NSNotification *)note {
     NSMutableArray *attachments = [[NSMutableArray alloc] init];
     NSMutableArray *images = [[NSMutableArray alloc] init];
@@ -74,6 +100,15 @@
     
     _attachments = attachments.copy;
     _images = images.copy;
+    
+    [self calculateAttachmentsIndices];
+}
+
+- (NSTextAttachment*)attachmentAtIndex:(NSUInteger)index {
+    NSRange effectiveRange = NSMakeRange(0, 0);
+    NSTextAttachment *attachment = [_textView.textStorage attribute:NSAttachmentAttributeName atIndex:index effectiveRange:&effectiveRange];
+    
+    return attachment;
 }
 
 @end

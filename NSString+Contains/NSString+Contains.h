@@ -5,9 +5,8 @@
 
 @interface NSString (Contains)
 
-- (BOOL)containsString:(NSString *)string;
+- (BOOL)containsString:(NSString *)theString;
 
-- (BOOL)containsString:(NSString *)string
-               options:(NSStringCompareOptions)options;
+- (BOOL)containsString:(NSString *)theString options:(NSStringCompareOptions)theOptions;
 
 @end
