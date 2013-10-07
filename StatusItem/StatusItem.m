@@ -49,11 +49,7 @@
     [statusItem drawStatusBarBackgroundInRect:_bounds withHighlight:menuVisible];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-    //Subclasses can override
-    
-    [self drawStandardBackground];
-    
+- (void)drawImage {
     if (_image) {
         NSColor *color = selected? NSColor.whiteColor : NSColor.blackColor;
         
@@ -78,6 +74,13 @@
         
         [done drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
     }
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    //Subclasses can override
+    
+    [self drawStandardBackground];
+    [self drawImage];
 }
 
 // From NSImage+SJAdditions
