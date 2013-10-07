@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-/** Reads an Adobe .aco swatch file and returns the HEX colors contained within it*/
+/** Reads an Adobe .aco swatch file and returns the HEX colors contained within it */
 @interface SJACOReader : NSObject {
     NSString *fileContents;
 }
