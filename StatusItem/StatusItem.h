@@ -9,10 +9,17 @@
 @required
 - (void)statusItemClicked:(BOOL)selected;
 
+@optional
+- (void)statusItemRightClicked:(BOOL)rightClickSelected;
+
 @end
 
 
-@interface StatusItem : NSView <NSMenuDelegate>
+@interface StatusItem : NSView <NSMenuDelegate> {
+    BOOL selected;
+    BOOL menuVisible;
+    NSStatusItem *statusItem;
+}
 
 @property (strong) NSImage *image;
 @property (strong) NSMenu *menu;

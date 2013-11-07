@@ -7,14 +7,6 @@
 
 #define kStandardThickness [[NSStatusBar systemStatusBar] thickness]
 
-@interface StatusItem () {
-    BOOL selected;
-    BOOL menuVisible;
-    NSStatusItem *statusItem;
-}
-
-@end
-
 @implementation StatusItem
 
 #pragma mark - Init
@@ -141,7 +133,11 @@
             _menu.delegate = self;
         }
         
-        [_menu popUpMenuPositioningItem:[_menu itemAtIndex:0] atLocation:NSMakePoint((_bounds.size.width/2)-11, NSMinY(_bounds)-4) inView:self];
+        if (_delegate && [_delegate respondsToSelector:@selector(statusItemRightClicked:)]) {
+            [_delegate statusItemRightClicked:!menuVisible];
+        }
+        
+        [statusItem popUpStatusItemMenu:_menu];
     }
 }
 
