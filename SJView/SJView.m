@@ -10,20 +10,51 @@
 
 #pragma mark - Basics
 
-- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle {
-    id toReturn = [self initWithFrame:frameRect];
+- (id)initWithFrame:(NSRect)frame Color:(NSColor*)theColor {
+    self = [super initWithFrame:frame];
     
-    if (theGradient) {
-        [toReturn setDrawBlock:^(void){
-            if (theAngle) {
-                [theGradient drawInRect:self.bounds angle:theAngle];
-            } else {
-                [theGradient drawInRect:self.bounds angle:-90];
-            }
-        }];
+    if (self) {
+        if (theColor) {
+            [self setDrawBlock:^(void){
+                [theColor set];
+                NSRectFill(self.bounds);
+            }];
+        }
     }
     
-    return toReturn;
+    return self;
+}
+
+- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient RelativeCenterPosition:(NSPoint)theCenter  {
+    self = [super initWithFrame:frameRect];
+    
+    if (self) {
+        if (theGradient) {
+            [self setDrawBlock:^(void){
+                [theGradient drawInRect:self.bounds relativeCenterPosition:theCenter];
+            }];
+        }
+    }
+    
+    return self;
+}
+
+- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle {
+    self = [super initWithFrame:frameRect];
+    
+    if (self) {
+        if (theGradient) {
+            [self setDrawBlock:^(void){
+                if (theAngle) {
+                    [theGradient drawInRect:self.bounds angle:theAngle];
+                } else {
+                    [theGradient drawInRect:self.bounds angle:-90];
+                }
+            }];
+        }
+    }
+    
+    return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {    
@@ -36,69 +67,64 @@
 
 #pragma mark - Fade to Gradient
 
-- (void)fadeToGradient:(NSGradient*)newGradient Duration:(int)animDuration {
-    //Get the current view gradient (image)
+- (void)fadeToDrawBlock:(void (^)(void))newDrawBlock withDuration:(CGFloat)animDuration {
+    //Make an NSImageView with the current image
     NSImage *current = self.image;
     
-    //Make an NSImageView with the current gradient image
-    NSImageView *currentImageView = [[NSImageView alloc] initWithFrame:_frame];
-    [currentImageView setImage:current];
-    
+    NSImageView *currentImageView = [[NSImageView alloc] initWithFrame:self.frame];
+    currentImageView.image = current;
     [self addSubview:currentImageView];
     
     
-    //Make a new view drawing the new gradient, then get an image from it
-    SJView *tempView = [[SJView alloc] initWithFrame:_frame];
-    [tempView setDrawBlock:^(void){
-        //Ask it to draw the new gradient
-        [newGradient drawInRect:NSMakeRect(0, 0, _bounds.size.width, _bounds.size.height) angle:-90];
-        [self setNeedsDisplay:YES];
-    }];
+    //Make a new view drawing the new draw block, then get an image from it
+    SJView *tempView = [[SJView alloc] initWithFrame:self.frame];
+    tempView.drawBlock = newDrawBlock;
     
-    NSImage *new = [tempView image];
+    NSImage *new = tempView.image;
     
-    //Make a new NSImageView, with the new gradient image
-    NSImageView *newImageView = [[NSImageView alloc] initWithFrame:_frame];
-    [newImageView setImage:new];
+    //Make a new NSImageView, with the new image
+    NSImageView *newImageView = [[NSImageView alloc] initWithFrame:self.frame];
+    newImageView.image = new;
     
     
     [self setWantsLayer:YES];
     
-    //Setup the transition
-    CATransition *trans = [CATransition animation];
+    NSDictionary *backupAnimations = self.animations;
     
-    trans.duration = animDuration;
-    trans.timingFunction =  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    trans.type = kCATransitionFade;
-    self.animations = [NSDictionary dictionaryWithObject:trans forKey:@"subviews"];
+    //Setup the transition
+    CATransition *fade = [CATransition animation];
+    
+    fade.duration = animDuration;
+    fade.timingFunction =  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    fade.type = kCATransitionFade;
+    self.animations = @{@"subviews": fade};
     
     //Start the animation, fading from the NSImageView with the current view, to the one with the new one.
     [self replaceSubview:currentImageView with:newImageView];
     
-    [self setDrawBlock:^(void){
-        //Get ourselves drawing the new gradient
-        [newGradient drawInRect:NSMakeRect(0, 0, _bounds.size.width, _bounds.size.height) angle:-90];
-    }];
+    self.drawBlock = newDrawBlock;
     
     //Remove the NSImageView, to draw as normal
     [newImageView removeFromSuperview];
+    
+    //Restore previous animations
+    self.animations = backupAnimations;
 }
 
-- (void)fadeToGradient:(NSGradient*)newGradient {
-    //Fade to the gradient, defaulting to a duration of 0.25s
-    [self fadeToGradient:newGradient Duration:0.25];
+- (void)fadeToDrawBlock:(void (^)(void))newDrawBlock {
+    [self fadeToDrawBlock:newDrawBlock withDuration:0.25];
 }
 
 #pragma mark - Image from View
 
 - (NSImage *)image {
     //Get the size the image needs to be - this current view's size
-    NSSize imgSize = NSMakeSize(_bounds.size.width, _bounds.size.height);
+    NSSize imgSize = NSMakeSize(self.bounds.size.width, self.bounds.size.height);
     
     //Get an NSBitmapImageRep for everything in this view's bounds
-    NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:_bounds];
+    NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
     bitmapRep.size = imgSize;
-    [self cacheDisplayInRect:_bounds toBitmapImageRep:bitmapRep];
+    [self cacheDisplayInRect:self.bounds toBitmapImageRep:bitmapRep];
     
     //Return an NSImage, using the bitmap image representation (^)
     NSImage *image = [[NSImage alloc] initWithSize:imgSize];
