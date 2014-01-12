@@ -1,11 +1,11 @@
 
-// NSBezierPath+Smoothing.h
+// NSBezierPath+Additions.h
 
 // Seb Jachec
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSBezierPath (SJAdditions)
+@interface NSBezierPath (Additions)
 
 /**
  * @param smoothness The number of interpolation points, more means a smoother line

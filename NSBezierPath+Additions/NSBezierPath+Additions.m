@@ -1,11 +1,11 @@
 
-// NSBezierPath+Smoothing.m
+// NSBezierPath+Additions.m
 
 // Seb Jachec
 
-#import "NSBezierPath+SJAdditions.h"
+#import "NSBezierPath+Additions.h"
 
-@implementation NSBezierPath (SJAdditions)
+@implementation NSBezierPath (Additions)
 
 - (NSBezierPath*)smoothedPath:(CGFloat)smoothness {
     NSArray *generalizedPoints = [self douglasPeucker:[self points] epsilon:4];
