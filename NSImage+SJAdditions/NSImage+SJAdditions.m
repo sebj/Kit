@@ -91,6 +91,28 @@
     return retval;
 }
 
++ (NSImage *)pad:(NSImage *)theImage toAspectRatio:(NSSize)aspectRatio WithBackgroundColor:(NSColor *)bgColor {
+    NSSize originalSize = theImage.size;
+    NSSize newSize = originalSize;
+    
+    if (originalSize.width == originalSize.height) {
+        newSize.height = fabsf(originalSize.width*(aspectRatio.height/aspectRatio.width));
+    }else if (originalSize.width > originalSize.height) {
+        newSize.height = fabsf(originalSize.width*(aspectRatio.height/aspectRatio.width));
+    } else {
+        newSize.width = fabsf(originalSize.height*(aspectRatio.width/aspectRatio.height));
+    }
+    
+    NSImage *newImage = [[NSImage alloc] initWithSize:newSize];
+    [newImage drawWithBlock:^(void){
+        [bgColor set];
+        NSRectFill(NSMakeRect(0, 0, newSize.width, newSize.height));
+        [theImage drawAtPoint:NSMakePoint((newSize.width-originalSize.width)/2, newSize.height-originalSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+    }];
+    
+    return newImage;
+}
+
 #pragma mark -
 #pragma mark Flipping
 
