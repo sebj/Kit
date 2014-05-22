@@ -7,84 +7,74 @@
 
 @implementation SJACOReader
 
-//Structure:
-
-//0001 <Number of colors (eg. 0008)> 0000 <Followed by HEX codes, separated by 2 sets of 4 zeroes>
-
-//Notes:
-
-//A HEX code like FFF8F3 would be stored as: ffff f8f8 f3f3
-
 - (NSArray*)HEXColorsFromFile:(NSString*)theFile {
     if (![theFile.pathExtension isEqualToString:@"aco"]) {
+        NSLog(@"SJACOReader: Invalid file extension (expected '.aco')");
         return nil;
     }
     
-    NSData *theData = [NSData dataWithContentsOfFile:theFile];
-    fileContents = theData.description;
-    
-    return [self getColors];
+    return [self getColors:[NSData dataWithContentsOfFile:theFile]];
 }
 
 - (NSArray*)HEXColorsFromFileURL:(NSURL*)theURL {
     if (![theURL.pathExtension isEqualToString:@"aco"]) {
+        NSLog(@"SJACOReader: Invalid file extension (expected '.aco')");
         return nil;
     }
     
-    NSData *theData = [NSData dataWithContentsOfURL:theURL];
-    fileContents = theData.description;
-    
-    return [self getColors];
+    return [self getColors:[NSData dataWithContentsOfURL:theURL]];
 }
 
-- (NSArray*)getColors {
-    //Rough code..
+- (NSArray*)getColors:(NSData*)theData {
+    NSString *fileContents = theData.description;
+    
+    if (fileContents.length < 29) {
+        //Minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
+        return nil;
+    }
+    
+    //Trim start and end ("<" and ">")
     fileContents = [fileContents substringWithRange:NSMakeRange(1, fileContents.length-2)];
+    //Remove spaces
+    fileContents = [fileContents stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    int colorCount = [fileContents substringWithRange:NSMakeRange(4, 4)].intValue;
     
-    fileContents = [[[[fileContents substringFromIndex:9] substringWithRange:NSMakeRange(0, 24*colorCount)] componentsSeparatedByString:@"0000 0002"][0] substringFromIndex:4];
-    fileContents = [fileContents stringByReplacingOccurrencesOfString:@"00000000 " withString:@""];
-    fileContents = [fileContents stringByReplacingOccurrencesOfString:@"0000 0000" withString:@" "];
-    //
+    //Sort into 'chunks'
+    NSMutableArray *chunks = [[NSMutableArray alloc] init];
+    
+    NSRange range = NSMakeRange(0, 4);
+    while (chunks.count != (fileContents.length/4)) {
+        [chunks addObject:[fileContents substringWithRange:range]];
+        
+        range = NSMakeRange(range.location+4, 4);
+    }
+    
+    
+    //Get number of colors
+    unsigned colorCount = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:chunks[1]];
+    [scanner scanHexInt:&colorCount];
+    
+    //Remove version, number and "blannk" ("0000") after - first 3 objects
+    [chunks removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)]];
     
     
     NSMutableArray *hexColors = [[NSMutableArray alloc] init];
     
-    NSMutableString *tempString = [NSMutableString stringWithString:@""];
-    
-    for (NSString *block in [fileContents componentsSeparatedByString:@" "]) {
-        
+    //Loop through, turning FFFF 9999 0000 into FF9900
+    NSMutableString *temp = [NSMutableString stringWithString:@""];
+    for (NSString *block in chunks) {
         if (hexColors.count == colorCount) {
             break;
-        } else {
-            //Append the first half
-            NSString *firstHalf = [block substringToIndex:4];
-            [tempString appendString:[firstHalf substringToIndex:2]];
-            
-            //Check if we have a hex code
-            if (tempString.length == 6) {
-                //Add to array and reset temporary string
-                [hexColors addObject:tempString.copy];
-                tempString = [NSMutableString stringWithString:@""];
-            }
-            
-            //Try to append the second half (if it exists)
-            @try {
-                NSString *secondHalf = [block substringFromIndex:4];
-                [tempString appendString:[secondHalf substringToIndex:2]];
-            }
-            @catch (NSException *exception) {
-                //Ah well
-            }
-            
-            
-            //Check if we have a hex code
-            if (tempString.length == 6) {
-                //Add to array and reset temporary string
-                [hexColors addObject:tempString.copy];
-                tempString = [NSMutableString stringWithString:@""];
-            }
+        }
+        
+        if (temp.length == 6) {
+            [hexColors addObject:temp];
+            temp = [NSMutableString stringWithString:@""];
+        }
+        
+        if (![block isEqualToString:@"0000"]) {
+            [temp appendString:[block substringToIndex:2]];
         }
     }
     
