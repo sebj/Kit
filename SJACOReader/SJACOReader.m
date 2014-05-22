@@ -5,28 +5,51 @@
 
 #import "SJACOReader.h"
 
+@interface SJACOReader () {
+    NSData *file;
+}
+
+@end
+
 @implementation SJACOReader
 
-- (NSArray*)HEXColorsFromFile:(NSString*)theFile {
-    if (![theFile.pathExtension isEqualToString:@"aco"]) {
-        NSLog(@"SJACOReader: Invalid file extension (expected '.aco')");
-        return nil;
+- (instancetype)initWithFile:(NSString*)aFile {
+    self = [super init];
+    if (self) {
+        if ([aFile.pathExtension isEqualToString:@"aco"]) {
+            file = [NSData dataWithContentsOfFile:aFile];
+        }
     }
-    
-    return [self getColors:[NSData dataWithContentsOfFile:theFile]];
+    return self;
 }
 
-- (NSArray*)HEXColorsFromFileURL:(NSURL*)theURL {
-    if (![theURL.pathExtension isEqualToString:@"aco"]) {
-        NSLog(@"SJACOReader: Invalid file extension (expected '.aco')");
-        return nil;
+- (instancetype)initWithURL:(NSURL*)aURL {
+    self = [super init];
+    if (self) {
+        if ([aURL.pathExtension isEqualToString:@"aco"]) {
+            file = [NSData dataWithContentsOfURL:aURL];
+        }
     }
-    
-    return [self getColors:[NSData dataWithContentsOfURL:theURL]];
+    return self;
 }
 
-- (NSArray*)getColors:(NSData*)theData {
-    NSString *fileContents = theData.description;
+- (int)numberOfColors {
+    NSString *fileContents = file.description;
+    
+    //Minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
+    if (fileContents.length >= 29) {
+        unsigned colorCount = 0;
+        NSScanner *scanner = [NSScanner scannerWithString:[fileContents substringWithRange:NSMakeRange(5, 4)]];
+        [scanner scanHexInt:&colorCount];
+        
+        return colorCount;
+    }
+    
+    return 0;
+}
+
+- (NSArray*)colors {
+    NSString *fileContents = file.description;
     
     if (fileContents.length < 29) {
         //Minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
