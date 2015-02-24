@@ -1,6 +1,6 @@
-##SJKit
+##Kit
 
-A collection of useful classes and categories.
+A collection of Objective-C classes and categories I've created whilst working on various projects. You may find something useful here..
 
 ###Components
 
