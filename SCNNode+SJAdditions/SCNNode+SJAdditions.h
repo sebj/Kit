@@ -2,7 +2,7 @@
 //  SCNNode+SJAdditions.h
 
 //  Created by Seb Jachec on 28/12/2013.
-//  Copyright (c) 2013 Seb Jachec. All rights reserved.
+//  Copyright (c) Seb Jachec. All rights reserved.
 
 #import <SceneKit/SceneKit.h>
 

@@ -1,10 +1,8 @@
-//
+
 //  NSColor+SJAdditions.m
-//  Pickr
-//
+
 //  Created by Seb Jachec on 03/10/2013.
-//  Copyright (c) 2013 Sebastian Jachec and Thom van der Weerd. All rights reserved.
-//
+//  Copyright (c) Sebastian Jachec. All rights reserved.
 
 #import "NSColor+SJAdditions.h"
 #import "NSColor+Hex.h"
