@@ -3,7 +3,7 @@
 
 // Seb Jachec
 
-#import <QuartzCore/QuartzCore.h>
+#import <Quartz/Quartz.h>
 
 @interface CIImage (NSImage)
 

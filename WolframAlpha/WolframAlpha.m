@@ -10,20 +10,13 @@
 @synthesize appID, delegate;
 
 #pragma mark - Basics
-- (id)initWithAppID:(NSString*)theID {
+
+- (instancetype)initWithAppID:(NSString*)theID {
+    self = [super init];
     if (self) {
         appID = theID;
     }
-    
     return self;
-}
-
-- (void)setDelegate:(id)theValue {
-    delegate = theValue;
-}
-
-- (id)delegate {
-    return delegate;
 }
 
 #pragma mark - Useful methods
@@ -39,19 +32,18 @@
         NSError *err;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
         
-        if ([delegate respondsToSelector:@selector(didStartQuery:)]) {
+        if ([delegate respondsToSelector:@selector(didStartQuery:)])
             [delegate didStartQuery:self];
-        }
         
         if (err) {
-            if ([delegate respondsToSelector:@selector(didFinishQuery:)]) {
+            if ([delegate respondsToSelector:@selector(didFinishQuery:)])
                 [delegate didFinishQuery:self];
-            }
+            
             @throw ([NSException exceptionWithName:@"Unable to send request." reason:[NSString stringWithFormat:@"Error sending request: %@",err] userInfo:nil]);
         } else {
-            if ([delegate respondsToSelector:@selector(didFinishQuery:)]) {
+            if ([delegate respondsToSelector:@selector(didFinishQuery:)])
                 [delegate didFinishQuery:self];
-            }
+            
             return data;
         }
     } else {

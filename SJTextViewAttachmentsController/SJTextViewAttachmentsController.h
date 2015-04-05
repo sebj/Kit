@@ -3,7 +3,7 @@
 
 // Seb Jachec
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 @interface SJTextViewAttachmentsController : NSObject <NSTextStorageDelegate>
 
@@ -38,7 +38,7 @@
  * @return An initialised SJTextViewAttachmentsController
  *
  */
-- (id)initWithTextView:(NSTextView*)aTextView;
+- (instancetype)initWithTextView:(NSTextView*)aTextView;
 
 /**
  * @param index The character index to check

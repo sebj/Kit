@@ -19,7 +19,7 @@
  * @param frameRect Frame for view
  * @param theColor The color to draw/fill the view with
  */
-- (id)initWithFrame:(NSRect)frameRect Color:(NSColor*)theColor;
+- (instancetype)initWithFrame:(NSRect)frameRect Color:(NSColor*)theColor;
 
 /**
  * Initialises a view with a radial gradient
@@ -28,7 +28,7 @@
  * @param theGradient The gradient to draw
  * @param theCenter The relative center point of the gradient
  */
-- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient RelativeCenterPosition:(NSPoint)theCenter;
+- (instancetype)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient RelativeCenterPosition:(NSPoint)theCenter;
 
 /**
  * Initialises a view with a linear gradient
@@ -37,7 +37,7 @@
  * @param theGradient The gradient to draw
  * @param theAngle The angle at which to draw the gradient
  */
-- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle;
+- (instancetype)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle;
 
 
 - (void)fadeToDrawBlock:(void (^)(void))newDrawBlock withDuration:(CGFloat)animDuration;

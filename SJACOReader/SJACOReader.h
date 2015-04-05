@@ -12,12 +12,12 @@
 
 - (instancetype)initWithURL:(NSURL*)aURL;
 
-/*
+/**
  * @returns The number of Hex colors within the file, or 0 if unable get the count
  */
 @property (readonly, getter = numberOfColors) int numberOfColors;
 
-/*
+/**
  * @returns An array containing each Hex color, or nil if unable to get the  colors
  */
 @property (readonly, getter = colors) NSArray *colors;

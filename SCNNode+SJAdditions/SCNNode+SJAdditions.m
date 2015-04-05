@@ -7,9 +7,6 @@
 #import "SCNNode+SJAdditions.h"
 #import <objc/runtime.h>
 
-static char REPRESENTED_FILE;
-static char REPRESENTED_DICT;
-
 @implementation SCNNode (SJAdditions)
 
 @dynamic representedFile;
@@ -18,28 +15,27 @@ static char REPRESENTED_DICT;
 
 #pragma mark - Represented file/dictionary
 
-- (void)setRepresentedFile:(NSString *)representedFile {
-    objc_setAssociatedObject(self, &REPRESENTED_FILE, representedFile, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (NSString*)representedFile {
-    return objc_getAssociatedObject(self, &REPRESENTED_FILE);
+    return objc_getAssociatedObject(self, @selector(representedFile));
 }
 
-- (void)setRepresentedDictionary:(NSString *)representedDictionary {
-    objc_setAssociatedObject(self, &REPRESENTED_DICT, representedDictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setRepresentedFile:(NSString *)representedFile {
+    objc_setAssociatedObject(self, @selector(representedFile), representedFile, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSDictionary*)representedDictionary {
-    return objc_getAssociatedObject(self, &REPRESENTED_DICT);
+    return objc_getAssociatedObject(self, @selector(representedDictionary));
+}
+
+- (void)setRepresentedDictionary:(NSString *)representedDictionary {
+    objc_setAssociatedObject(self, @selector(representedDictionary), representedDictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark - Width, Height, Bounds
 
 - (CGFloat)width {
-    if (!self.geometry) {
+    if (!self.geometry)
         return 0.0;
-    }
     
     Class geometryClass = [self.geometry class];
     
@@ -58,9 +54,8 @@ static char REPRESENTED_DICT;
 }
 
 - (CGFloat)height {
-    if (!self.geometry) {
+    if (!self.geometry)
         return 0.0;
-    }
     
     Class geometryClass = [self.geometry class];
     

@@ -16,8 +16,7 @@
 }
 
 + (CIImage *)imageWithNSImage:(NSImage*)theImage {
-    if (!theImage)
-        return nil;
+    if (!theImage) return nil;
     
     return [CIImage imageWithData:theImage.TIFFRepresentation];
 }

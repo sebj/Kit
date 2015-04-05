@@ -20,12 +20,10 @@
     return shared;
 }
 
-
 #pragma mark - Public methods
 - (NSString*)fullNameForPart:(NSString*)value {
-    if ([value componentsSeparatedByString:@" "].count == 2) {
+    if ([value componentsSeparatedByString:@" "].count == 2)
         return value;
-    }
     
     BOOL isFirst = [self isFirstName:value];
     
@@ -69,9 +67,7 @@
         return [self lastNameForFirstName:value];
     }
     
-    if (rightPerson) {
-        return [rightPerson valueForProperty:kABFirstNameProperty];
-    }
+    return [rightPerson valueForProperty:kABFirstNameProperty];
 }
 
 - (NSString*)lastNameForFirstName:(NSString*)value {
@@ -85,9 +81,7 @@
         return [self lastNameForFirstName:value];
     }
     
-    if (rightPerson) {
-        return [rightPerson valueForProperty:kABLastNameProperty];
-    }
+    return [rightPerson valueForProperty:kABLastNameProperty];
 }
 
 
@@ -97,11 +91,10 @@
     
     NSMutableDictionary *returnProps = [[NSMutableDictionary alloc] init];
     
-    for (NSString *property in [ABPerson properties]) {
+    for (NSString *property in ABPerson.properties) {
         id valueForProperty = [rightPerson valueForProperty:property];
-        if (valueForProperty) {
+        if (valueForProperty)
             returnProps[property] = valueForProperty;
-        }
     }
     
     return (NSDictionary*)returnProps;
@@ -116,7 +109,6 @@
 }
 
 
-
 - (BOOL)personExistsInAddressbookWithName:(NSString*)value {
     ABPerson *thePerson = nil;
     thePerson = [self personWithFullName:value];
@@ -129,25 +121,19 @@
 }
 
 
-
 - (ABPerson*)personWithFullName:(NSString*)fullName {
     ABPerson *person = nil;
     NSArray *possibles = [self searchForValue:[fullName componentsSeparatedByString:@" "][0] forProperty:kABFirstNameProperty];
     
     for (ABPerson *thePerson in possibles) {
-        if (person) {
-            break;
-        }
+        if (person) break;
+        
         if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]]) {
             person = thePerson;
         }
     }
     
-    if (person) {
-        return person;
-    } else {
-        return nil;
-    }
+    return person;
 }
 
 
@@ -156,14 +142,9 @@
     NSString *fullName = [self fullNameForPart:name];
     ABPerson *thePerson = [self personWithFullName:fullName];
     
-    NSString *args = nil;
-    if (thePerson != nil) {
-        if (allowEdit) {
-            args = [NSString stringWithFormat:@"%@?edit",[thePerson uniqueId]];
-        } else {
-            args = [thePerson uniqueId];
-        }
-    }
+    NSString *args = @"";
+    if (thePerson != nil)
+        args = allowEdit? [NSString stringWithFormat:@"%@?edit",thePerson.uniqueId] : thePerson.uniqueId;
     
     NSString *urlString = [NSString stringWithFormat:@"addressbook://%@", args];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];

@@ -10,7 +10,7 @@
 
 #pragma mark - Basics
 
-- (id)initWithFrame:(NSRect)frame Color:(NSColor*)theColor {
+- (instancetype)initWithFrame:(NSRect)frame Color:(NSColor*)theColor {
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient RelativeCenterPosition:(NSPoint)theCenter  {
+- (instancetype)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient RelativeCenterPosition:(NSPoint)theCenter  {
     self = [super initWithFrame:frameRect];
     
     if (self) {
@@ -39,7 +39,7 @@
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle {
+- (instancetype)initWithFrame:(NSRect)frameRect Gradient:(NSGradient*)theGradient Angle:(int)theAngle {
     self = [super initWithFrame:frameRect];
     
     if (self) {
@@ -69,10 +69,8 @@
 
 - (void)fadeToDrawBlock:(void (^)(void))newDrawBlock withDuration:(CGFloat)animDuration {
     //Make an NSImageView with the current image
-    NSImage *current = self.image;
-    
     NSImageView *currentImageView = [[NSImageView alloc] initWithFrame:self.frame];
-    currentImageView.image = current;
+    currentImageView.image = self.image;
     [self addSubview:currentImageView];
     
     
@@ -80,11 +78,9 @@
     SJView *tempView = [[SJView alloc] initWithFrame:self.frame];
     tempView.drawBlock = newDrawBlock;
     
-    NSImage *new = tempView.image;
-    
     //Make a new NSImageView, with the new image
     NSImageView *newImageView = [[NSImageView alloc] initWithFrame:self.frame];
-    newImageView.image = new;
+    newImageView.image = tempView.image;
     
     
     [self setWantsLayer:YES];
@@ -93,7 +89,6 @@
     
     //Setup the transition
     CATransition *fade = [CATransition animation];
-    
     fade.duration = animDuration;
     fade.timingFunction =  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     fade.type = kCATransitionFade;

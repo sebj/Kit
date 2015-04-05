@@ -22,7 +22,7 @@
 @property (strong) NSString *appID;
 @property (nonatomic, assign) id <WolframAlphaDelegate> delegate;
 
-- (id)initWithAppID:(NSString*)theID;
+- (instancetype)initWithAppID:(NSString*)theID;
 
 - (NSData*)sendQueryWithString:(NSString*)theValue metric:(BOOL)isMetric;
 - (NSData*)sendQueryWithString:(NSString*)theValue;

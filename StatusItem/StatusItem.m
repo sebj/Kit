@@ -11,11 +11,11 @@
 
 #pragma mark - Init
 
-- (id)initWithStandardThickness {
+- (instancetype)initWithStandardThickness {
     return [self initWithThickness:kStandardThickness];
 }
 
-- (id)initWithThickness:(CGFloat)thickness {
+- (instancetype)initWithThickness:(CGFloat)thickness {
     self = [super init];
     if (self) {
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:thickness];
@@ -115,9 +115,8 @@
         self.needsDisplay = YES;
     }
     
-    if (_delegate && [_delegate respondsToSelector:@selector(statusItemClicked:)]) {
+    if (_delegate && [_delegate respondsToSelector:@selector(statusItemClicked:)])
         [_delegate statusItemClicked:selected];
-    }
 }
 
 #pragma mark - Right click, menu
@@ -128,16 +127,15 @@
 }
 
 - (void)showMenu {
-    if (_menu) {
-        if (_menu.delegate != self) {
-            _menu.delegate = self;
-        }
+    if (self.menu) {
         
-        if (_delegate && [_delegate respondsToSelector:@selector(statusItemRightClicked:)]) {
+        if (self.menu.delegate != self)
+            self.menu.delegate = self;
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(statusItemRightClicked:)])
             [_delegate statusItemRightClicked:!menuVisible];
-        }
         
-        [statusItem popUpStatusItemMenu:_menu];
+        [statusItem popUpStatusItemMenu:self.menu];
     }
 }
 

@@ -61,9 +61,8 @@
     NSRect newRect = [self.layoutManager usedRectForTextContainer:self.textContainer];
     
     //If there's a height margin set, add it on to the height (of course!)
-    if (_heightMargin) {
+    if (_heightMargin)
         newRect.size.height += _heightMargin;
-    }
     
     //Ensure that we doesn't start shrinking the width when you fill less than a line.
     if ((_minimumWidth && newRect.size.width >= _minimumWidth) || (newRect.size.width >= self.frame.size.width)) {

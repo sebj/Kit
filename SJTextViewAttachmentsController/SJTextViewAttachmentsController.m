@@ -7,7 +7,7 @@
 
 @implementation SJTextViewAttachmentsController
 
-- (id)initWithTextView:(NSTextView*)aTextView {
+- (instancetype)initWithTextView:(NSTextView*)aTextView {
     if ([super init]) {
         _textView = aTextView;
         _textView.textStorage.delegate = self;
@@ -18,7 +18,7 @@
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     if ([super init]) {
         _attachments = @[];
         _images = @[];
@@ -31,11 +31,7 @@
 - (BOOL)isImage:(NSString*)aPathExtension {
     NSArray *imageExtensions = @[@"tif",@"tiff",@"jpg",@"jpeg",@"jp2",@"exr",@"pdf",@"png",@"nef",@"raw",@"gif",@"psd",@"psb"];
     
-    if ([imageExtensions containsObject:aPathExtension.lowercaseString]) {
-        return YES;
-    } else {
-        return NO;
-    }
+    return [imageExtensions containsObject:aPathExtension.lowercaseString];
 }
 
 - (void)calculateAttachmentsIndices {
@@ -48,17 +44,15 @@
         NSRange range = NSMakeRange(0, 0);
         NSTextAttachment *attachment = [text attribute:NSAttachmentAttributeName atIndex:index effectiveRange:&range];
         
-        if (attachment) {
+        if (attachment)
             [newIndices addObject:@(index)];
-        }
         
         index++;
     }
     
     //To counter a strange glitch in which the last attachment is duplicated
-    if (newIndices.count > 1) {
+    if (newIndices.count > 1)
         [newIndices removeLastObject];
-    }
     
     _attachmentsIndices = newIndices;
 }
@@ -70,8 +64,7 @@
     
     NSAttributedString *text = _textView.textStorage;
     
-    if (note.object != text)
-        return;
+    if (note.object != text) return;
     
     NSRange effectiveRange = NSMakeRange(0, 0);
     
@@ -90,13 +83,11 @@
     }
     
     //To counter a strange glitch in which the last attachment is duplicated
-    if (images.count > 1) {
+    if (images.count > 1)
         [images removeLastObject];
-    }
     
-    if (attachments.count > 1) {
+    if (attachments.count > 1)
         [attachments removeLastObject];
-    }
     
     _attachments = attachments.copy;
     _images = images.copy;

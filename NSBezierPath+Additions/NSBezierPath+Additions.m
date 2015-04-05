@@ -58,9 +58,8 @@
 
 - (NSArray *)douglasPeucker:(NSArray *)points epsilon:(float)epsilon {
     NSUInteger count = points.count;
-    if(count < 3) {
+    if (count < 3)
         return points;
-    }
     
     //Find the point with the maximum distance
     float dmax = 0;
@@ -70,7 +69,7 @@
         CGPoint lineA = [points[0] pointValue];
         CGPoint lineB = [points[count - 1] pointValue];
         float d = [self perpendicularDistance:point lineA:lineA lineB:lineB];
-        if(d > dmax) {
+        if (d > dmax) {
             index = i;
             dmax = d;
         }
@@ -78,7 +77,7 @@
     
     //If max distance is greater than epsilon, recursively simplify
     NSArray *resultList;
-    if(dmax > epsilon) {
+    if (dmax > epsilon) {
         NSArray *recResults1 = [self douglasPeucker:[points subarrayWithRange:NSMakeRange(0, index + 1)] epsilon:epsilon];
         
         NSArray *recResults2 = [self douglasPeucker:[points subarrayWithRange:NSMakeRange(index, count - index)] epsilon:epsilon];
@@ -94,8 +93,7 @@
     return resultList;
 }
 
-- (float)perpendicularDistance:(CGPoint)point lineA:(CGPoint)lineA lineB:(CGPoint)lineB
-{
+- (float)perpendicularDistance:(CGPoint)point lineA:(CGPoint)lineA lineB:(CGPoint)lineB {
     CGPoint v1 = CGPointMake(lineB.x - lineA.x, lineB.y - lineA.y);
     CGPoint v2 = CGPointMake(point.x - lineA.x, point.y - lineA.y);
     float lenV1 = sqrt(v1.x * v1.x + v1.y * v1.y);
@@ -104,12 +102,10 @@
     return sin(angle) * lenV2;
 }
 
-- (NSArray *)catmullRomSpline:(NSArray *)points segments:(int)segments
-{
+- (NSArray *)catmullRomSpline:(NSArray *)points segments:(int)segments {
     NSUInteger count = points.count;
-    if(count < 4) {
+    if (count < 4)
         return points;
-    }
     
     float b[segments][4];
     {

@@ -16,9 +16,8 @@
 - (instancetype)initWithFile:(NSString*)aFile {
     self = [super init];
     if (self) {
-        if ([aFile.pathExtension isEqualToString:@"aco"]) {
+        if ([aFile.pathExtension isEqualToString:@"aco"])
             file = [NSData dataWithContentsOfFile:aFile];
-        }
     }
     return self;
 }
@@ -26,15 +25,29 @@
 - (instancetype)initWithURL:(NSURL*)aURL {
     self = [super init];
     if (self) {
-        if ([aURL.pathExtension isEqualToString:@"aco"]) {
+        if ([aURL.pathExtension isEqualToString:@"aco"])
             file = [NSData dataWithContentsOfURL:aURL];
-        }
     }
     return self;
 }
 
+- (NSString *)hexadecimalString:(NSData*)data {
+    const unsigned char *dataBuffer = (const unsigned char *)data.bytes;
+    
+    if (!dataBuffer)
+        return nil;
+    
+    NSUInteger dataLength  = data.length;
+    NSMutableString *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    
+    for (int i = 0; i < dataLength; i++)
+        [hexString appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
+    
+    return [NSString stringWithString:hexString];
+}
+
 - (int)numberOfColors {
-    NSString *fileContents = file.description;
+    NSString *fileContents = [self hexadecimalString:file];
     
     //Minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
     if (fileContents.length >= 29) {
@@ -87,18 +100,15 @@
     //Loop through, turning FFFF 9999 0000 into FF9900
     NSMutableString *temp = [NSMutableString stringWithString:@""];
     for (NSString *block in chunks) {
-        if (hexColors.count == colorCount) {
-            break;
-        }
+        if (hexColors.count == colorCount) break;
         
         if (temp.length == 6) {
             [hexColors addObject:temp];
             temp = [NSMutableString stringWithString:@""];
         }
         
-        if (![block isEqualToString:@"0000"]) {
+        if (![block isEqualToString:@"0000"])
             [temp appendString:[block substringToIndex:2]];
-        }
     }
     
     return hexColors;
