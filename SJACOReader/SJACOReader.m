@@ -62,7 +62,7 @@
 }
 
 - (NSArray*)colors {
-    NSString *fileContents = file.description;
+    NSString *fileContents = [self hexadecimalString:file];
     
     if (fileContents.length < 29) {
         //Minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
