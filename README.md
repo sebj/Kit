@@ -10,6 +10,7 @@ A collection of Objective-C classes and categories I've created whilst working o
 * **NSImage+SJAdditions** - a few additions on NSImage: blending, masking, flipping etc.
 * **NSTableView+RightClickedIndices**
 * **SCNNode+SJAdditions**
+* **SelectorTimer**
 * **SJACOReader** - read Adobe .aco swatch files and return every color in hex format
 * **SJAddressBookAccessor**
 * **SJADNShareController** - Add App.net to the Mountain Lion share menu in your app, or use it standalone to share
