@@ -14,7 +14,7 @@
     static SJAddressBookAccessor *shared = nil;
     
     dispatch_once(&pred, ^() {
-        shared = [[SJAddressBookAccessor alloc] init];
+        shared = [SJAddressBookAccessor new];
     });
     
     return shared;
@@ -22,8 +22,7 @@
 
 #pragma mark - Public methods
 - (NSString*)fullNameForPart:(NSString*)value {
-    if ([value componentsSeparatedByString:@" "].count == 2)
-        return value;
+    if ([value componentsSeparatedByString:@" "].count == 2) return value;
     
     BOOL isFirst = [self isFirstName:value];
     
@@ -89,12 +88,11 @@
 - (NSDictionary*)propertiesForPersonWithName:(NSString*)value {
     ABPerson *rightPerson = [self personWithFullName:value];
     
-    NSMutableDictionary *returnProps = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *returnProps = [NSMutableDictionary new];
     
     for (NSString *property in ABPerson.properties) {
         id valueForProperty = [rightPerson valueForProperty:property];
-        if (valueForProperty)
-            returnProps[property] = valueForProperty;
+        if (valueForProperty) returnProps[property] = valueForProperty;
     }
     
     return (NSDictionary*)returnProps;
@@ -110,14 +108,10 @@
 
 
 - (BOOL)personExistsInAddressbookWithName:(NSString*)value {
-    ABPerson *thePerson = nil;
+    ABPerson *thePerson;
     thePerson = [self personWithFullName:value];
     
-    if (!thePerson) {
-        return NO;
-    } else {
-        return YES;
-    }
+    return (thePerson != nil);
 }
 
 
@@ -128,9 +122,8 @@
     for (ABPerson *thePerson in possibles) {
         if (person) break;
         
-        if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]]) {
+        if ([[thePerson valueForProperty:kABLastNameProperty] isEqualToString:[fullName componentsSeparatedByString:@" "][1]])
             person = thePerson;
-        }
     }
     
     return person;
@@ -143,17 +136,17 @@
     ABPerson *thePerson = [self personWithFullName:fullName];
     
     NSString *args = @"";
-    if (thePerson != nil)
+    if (thePerson)
         args = allowEdit? [NSString stringWithFormat:@"%@?edit",thePerson.uniqueId] : thePerson.uniqueId;
     
     NSString *urlString = [NSString stringWithFormat:@"addressbook://%@", args];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+    [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:urlString]];
 }
 
 
 #pragma mark - Private methods
 - (NSArray*)searchForValue:(NSString*)value forProperty:(NSString*)property {
-    ABAddressBook *book = [ABAddressBook sharedAddressBook];
+    ABAddressBook *book = ABAddressBook.sharedAddressBook;
     ABSearchElement *searchElement = [ABPerson searchElementForProperty:property
                                                                   label:nil key:nil
                                                                   value:value

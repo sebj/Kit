@@ -18,7 +18,7 @@
 - (instancetype)initWithThickness:(CGFloat)thickness {
     self = [super init];
     if (self) {
-        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:thickness];
+        statusItem = [NSStatusBar.systemStatusBar statusItemWithLength:thickness];
         statusItem.view = [self initWithFrame:(NSRect){.size={thickness, thickness}}];
         
         selected = NO;

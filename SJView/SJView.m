@@ -15,9 +15,10 @@
     
     if (self) {
         if (theColor) {
+            __weak SJView *wSelf = self;
             [self setDrawBlock:^(void){
                 [theColor set];
-                NSRectFill(self.bounds);
+                NSRectFill(wSelf.bounds);
             }];
         }
     }
@@ -30,8 +31,9 @@
     
     if (self) {
         if (theGradient) {
+            __weak SJView *wSelf = self;
             [self setDrawBlock:^(void){
-                [theGradient drawInRect:self.bounds relativeCenterPosition:theCenter];
+                [theGradient drawInRect:wSelf.bounds relativeCenterPosition:theCenter];
             }];
         }
     }
@@ -44,11 +46,12 @@
     
     if (self) {
         if (theGradient) {
+            __weak SJView *wSelf = self;
             [self setDrawBlock:^(void){
                 if (theAngle) {
-                    [theGradient drawInRect:self.bounds angle:theAngle];
+                    [theGradient drawInRect:wSelf.bounds angle:theAngle];
                 } else {
-                    [theGradient drawInRect:self.bounds angle:-90];
+                    [theGradient drawInRect:wSelf.bounds angle:-90];
                 }
             }];
         }
@@ -60,6 +63,7 @@
 - (void)drawRect:(NSRect)dirtyRect {    
     if (self.drawBlock) {
         self.drawBlock();
+        
     } else if (self.baseDrawBlock) {
         self.baseDrawBlock();
     }

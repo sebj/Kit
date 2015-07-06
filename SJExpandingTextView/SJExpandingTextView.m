@@ -13,15 +13,14 @@
 }
 
 - (void)keyUp:(NSEvent *)theEvent {
-    UInt16 key = [theEvent keyCode];
+    UInt16 key = theEvent.keyCode;
     
     if ((_actionKey && key == _actionKey) || (!_actionKey && key == 36)) {
         if (actionSender && action) {
-            NSLog(@"Enter");
             NSString *stringSelector = NSStringFromSelector(action);
             
             //Could be action:(id)sender for example
-            if ([[stringSelector substringFromIndex:stringSelector.length-1] isEqualToString:@":"]) {
+            if ([stringSelector characterAtIndex:stringSelector.length-1] == ':') {
                 @try {
                     #pragma clang diagnostic push
                     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -61,8 +60,7 @@
     NSRect newRect = [self.layoutManager usedRectForTextContainer:self.textContainer];
     
     //If there's a height margin set, add it on to the height (of course!)
-    if (_heightMargin)
-        newRect.size.height += _heightMargin;
+    if (_heightMargin) newRect.size.height += _heightMargin;
     
     //Ensure that we doesn't start shrinking the width when you fill less than a line.
     if ((_minimumWidth && newRect.size.width >= _minimumWidth) || (newRect.size.width >= self.frame.size.width)) {

@@ -8,19 +8,17 @@
 @implementation NSBezierPath (Additions)
 
 - (NSBezierPath*)smoothedPath:(CGFloat)smoothness {
-    NSArray *generalizedPoints = [self douglasPeucker:[self points] epsilon:4];
+    NSArray *generalizedPoints = [self douglasPeucker:self.points epsilon:4];
     NSArray *splinePoints = [self catmullRomSpline:generalizedPoints segments:smoothness];
     
     NSBezierPath *smoothedPath = [NSBezierPath bezierPath];
     
-    //Convert NSArray of point-values to C Array of NSPoints, in order to append to the path easily
+    //Convert NSArray of point-values to array of NSPoints, in order to append to the path easily
     NSUInteger count = splinePoints.count;
     NSPoint pointArray[count];
     
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
         pointArray[i] = [splinePoints[i] pointValue];
-    }
-    //
     
     [smoothedPath appendBezierPathWithPoints:pointArray count:count];
     
@@ -31,7 +29,7 @@
 //Code from http://stackoverflow.com/a/11277688/447697
 - (NSArray*)points {
     NSMutableArray *points = [NSMutableArray array];
-    NSBezierPath *flatPath = [self bezierPathByFlatteningPath];
+    NSBezierPath *flatPath = self.bezierPathByFlatteningPath;
     NSInteger count = flatPath.elementCount;
     NSPoint prev, curr;
     NSInteger i;
@@ -41,6 +39,7 @@
         NSBezierPathElement type = [flatPath elementAtIndex:i associatedPoints:&curr];
         if (i == count) {
             [points insertObject:[NSValue valueWithPoint:prev] atIndex:0];
+            
         } else {
             if (type == NSClosePathBezierPathElement) {
                 [flatPath elementAtIndex:0 associatedPoints:&curr];
@@ -58,8 +57,7 @@
 
 - (NSArray *)douglasPeucker:(NSArray *)points epsilon:(float)epsilon {
     NSUInteger count = points.count;
-    if (count < 3)
-        return points;
+    if (count < 3) return points;
     
     //Find the point with the maximum distance
     float dmax = 0;
@@ -87,7 +85,7 @@
         [tmpList addObjectsFromArray:recResults2];
         resultList = tmpList;
     } else {
-        resultList = [NSArray arrayWithObjects:[points objectAtIndex:0], [points objectAtIndex:count - 1],nil];
+        resultList = @[points[0],points[count-1]];
     }
     
     return resultList;
@@ -126,11 +124,11 @@
     
     {
         int i = 0; // first control point
-        [resultArray addObject:[points objectAtIndex:0]];
+        [resultArray addObject:points[0]];
         for (int j = 1; j < segments; j++) {
-            CGPoint pointI = [[points objectAtIndex:i] pointValue];
-            CGPoint pointIp1 = [[points objectAtIndex:(i + 1)] pointValue];
-            CGPoint pointIp2 = [[points objectAtIndex:(i + 2)] pointValue];
+            CGPoint pointI = [points[i] pointValue];
+            CGPoint pointIp1 = [points[i+1] pointValue];
+            CGPoint pointIp2 = [points[i+2] pointValue];
             float px = (b[j][0]+b[j][1])*pointI.x + b[j][2]*pointIp1.x + b[j][3]*pointIp2.x;
             float py = (b[j][0]+b[j][1])*pointI.y + b[j][2]*pointIp1.y + b[j][3]*pointIp2.y;
             [resultArray addObject:[NSValue valueWithPoint:CGPointMake(px, py)]];
@@ -139,12 +137,12 @@
     
     for (int i = 1; i < count-2; i++) {
         // the first interpolated point is always the original control point
-        [resultArray addObject:[points objectAtIndex:i]];
+        [resultArray addObject:points[i]];
         for (int j = 1; j < segments; j++) {
-            CGPoint pointIm1 = [[points objectAtIndex:(i - 1)] pointValue];
-            CGPoint pointI = [[points objectAtIndex:i] pointValue];
-            CGPoint pointIp1 = [[points objectAtIndex:(i + 1)] pointValue];
-            CGPoint pointIp2 = [[points objectAtIndex:(i + 2)] pointValue];
+            CGPoint pointIm1 = [points[i-1] pointValue];
+            CGPoint pointI = [points[i] pointValue];
+            CGPoint pointIp1 = [points[i+1] pointValue];
+            CGPoint pointIp2 = [points[i+2] pointValue];
             float px = b[j][0]*pointIm1.x + b[j][1]*pointI.x + b[j][2]*pointIp1.x + b[j][3]*pointIp2.x;
             float py = b[j][0]*pointIm1.y + b[j][1]*pointI.y + b[j][2]*pointIp1.y + b[j][3]*pointIp2.y;
             [resultArray addObject:[NSValue valueWithPoint:CGPointMake(px, py)]];
@@ -153,18 +151,18 @@
     
     {
         NSUInteger i = count-2; // second to last control point
-        [resultArray addObject:[points objectAtIndex:i]];
+        [resultArray addObject:points[i]];
         for (int j = 1; j < segments; j++) {
-            CGPoint pointIm1 = [[points objectAtIndex:(i - 1)] pointValue];
-            CGPoint pointI = [[points objectAtIndex:i] pointValue];
-            CGPoint pointIp1 = [[points objectAtIndex:(i + 1)] pointValue];
+            CGPoint pointIm1 = [points[i-1] pointValue];
+            CGPoint pointI = [points[i] pointValue];
+            CGPoint pointIp1 = [points[i+1] pointValue];
             float px = b[j][0]*pointIm1.x + b[j][1]*pointI.x + (b[j][2]+b[j][3])*pointIp1.x;
             float py = b[j][0]*pointIm1.y + b[j][1]*pointI.y + (b[j][2]+b[j][3])*pointIp1.y;
             [resultArray addObject:[NSValue valueWithPoint:CGPointMake(px, py)]];
         }
     }
     // the very last interpolated point is the last control point
-    [resultArray addObject:[points objectAtIndex:(count - 1)]];
+    [resultArray addObject:points[count-1]];
     
     return resultArray;
 }

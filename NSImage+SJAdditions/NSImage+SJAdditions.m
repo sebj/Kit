@@ -85,7 +85,7 @@
     
     [retval drawWithBlock:^{
         [theColor set];
-        NSRectFill(NSMakeRect(0,0,theSize.width,theSize.height));
+        NSRectFill((NSRect){.origin=NSZeroPoint, .size=theSize});
     }];
     
     return retval;
@@ -96,17 +96,17 @@
     NSSize newSize = originalSize;
     
     if (originalSize.width == originalSize.height) {
-        newSize.height = fabsf(originalSize.width*(aspectRatio.height/aspectRatio.width));
+        newSize.height = round(originalSize.width*(aspectRatio.height/aspectRatio.width));
     }else if (originalSize.width > originalSize.height) {
-        newSize.height = fabsf(originalSize.width*(aspectRatio.height/aspectRatio.width));
+        newSize.height = round(originalSize.width*(aspectRatio.height/aspectRatio.width));
     } else {
-        newSize.width = fabsf(originalSize.height*(aspectRatio.width/aspectRatio.height));
+        newSize.width = round(originalSize.height*(aspectRatio.width/aspectRatio.height));
     }
     
     NSImage *newImage = [[NSImage alloc] initWithSize:newSize];
     [newImage drawWithBlock:^(void){
         [bgColor set];
-        NSRectFill(NSMakeRect(0, 0, newSize.width, newSize.height));
+        NSRectFill((NSRect){.origin=NSZeroPoint, .size=newSize});
         [theImage drawAtPoint:NSMakePoint((newSize.width-originalSize.width)/2, newSize.height-originalSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
     }];
     
@@ -121,25 +121,25 @@
     NSImage *flippedImage = [[NSImage alloc] initWithSize:selfSize];
     
     [flippedImage drawWithBlock:^{
-        [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+        NSGraphicsContext.currentContext.imageInterpolation = NSImageInterpolationHigh;
         
         NSAffineTransform *t = [NSAffineTransform transform];
         [t translateXBy:selfSize.width yBy:0];
         [t scaleXBy:-1 yBy:1];
         [t concat];
         
-        [self drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0, 0, selfSize.width, selfSize.height) operation:NSCompositeSourceOver fraction:1.0];
+        [self drawAtPoint:NSZeroPoint fromRect:(NSRect){.origin=NSZeroPoint, .size=selfSize} operation:NSCompositeSourceOver fraction:1.0];
     }];
     
     return flippedImage;
 }
-
+    
 - (NSImage*)flippedVertically {
     __block NSSize selfSize = self.size;
     NSImage *flippedImage = [[NSImage alloc] initWithSize:selfSize];
     
     [flippedImage drawWithBlock:^{
-        [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+        NSGraphicsContext.currentContext.imageInterpolation = NSImageInterpolationHigh;
         
         NSAffineTransform *t = [NSAffineTransform transform];
         [t translateXBy:0 yBy:selfSize.height];

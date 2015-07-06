@@ -8,7 +8,6 @@
 @interface SJACOReader () {
     NSData *file;
 }
-
 @end
 
 @implementation SJACOReader
@@ -16,8 +15,12 @@
 - (instancetype)initWithFile:(NSString*)aFile {
     self = [super init];
     if (self) {
-        if ([aFile.pathExtension isEqualToString:@"aco"])
+        if ([aFile.pathExtension isEqualToString:@"aco"]) {
             file = [NSData dataWithContentsOfFile:aFile];
+            
+        } else {
+            NSLog(@"SJACOReader: Invalid file.");
+        }
     }
     return self;
 }
@@ -25,8 +28,12 @@
 - (instancetype)initWithURL:(NSURL*)aURL {
     self = [super init];
     if (self) {
-        if ([aURL.pathExtension isEqualToString:@"aco"])
+        if ([aURL.pathExtension isEqualToString:@"aco"]) {
             file = [NSData dataWithContentsOfURL:aURL];
+            
+        } else {
+            NSLog(@"SJACOReader: Invalid file.");
+        }
     }
     return self;
 }
@@ -34,8 +41,7 @@
 - (NSString *)hexadecimalString:(NSData*)data {
     const unsigned char *dataBuffer = (const unsigned char *)data.bytes;
     
-    if (!dataBuffer)
-        return nil;
+    if (!dataBuffer) return nil;
     
     NSUInteger dataLength  = data.length;
     NSMutableString *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
@@ -64,10 +70,8 @@
 - (NSArray*)colors {
     NSString *fileContents = [self hexadecimalString:file];
     
-    if (fileContents.length < 29) {
-        //Minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
-        return nil;
-    }
+    //Rough check - minimum length should be 29, eg. "0001 0001 0000 ffff ffff ffff"
+    if (fileContents.length < 29) return nil;
     
     //Trim start and end ("<" and ">")
     fileContents = [fileContents substringWithRange:NSMakeRange(1, fileContents.length-2)];
@@ -76,7 +80,7 @@
     
     
     //Sort into 'chunks'
-    NSMutableArray *chunks = [[NSMutableArray alloc] init];
+    NSMutableArray *chunks = [NSMutableArray new];
     
     NSRange range = NSMakeRange(0, 4);
     while (chunks.count != (fileContents.length/4)) {
@@ -95,7 +99,7 @@
     [chunks removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)]];
     
     
-    NSMutableArray *hexColors = [[NSMutableArray alloc] init];
+    NSMutableArray *hexColors = [NSMutableArray new];
     
     //Loop through, turning FFFF 9999 0000 into FF9900
     NSMutableString *temp = [NSMutableString stringWithString:@""];

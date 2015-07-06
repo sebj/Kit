@@ -30,37 +30,34 @@
 
 - (BOOL)isImage:(NSString*)aPathExtension {
     NSArray *imageExtensions = @[@"tif",@"tiff",@"jpg",@"jpeg",@"jp2",@"exr",@"pdf",@"png",@"nef",@"raw",@"gif",@"psd",@"psb"];
-    
     return [imageExtensions containsObject:aPathExtension.lowercaseString];
 }
 
 - (void)calculateAttachmentsIndices {
     NSAttributedString *text = _textView.textStorage;
     
-    NSMutableArray *newIndices = [[NSMutableArray alloc] init];
+    NSMutableArray *newIndices = [NSMutableArray new];
     
     int index = 0;
+    NSRange range = NSMakeRange(0, 0);
     while (index < text.length) {
-        NSRange range = NSMakeRange(0, 0);
         NSTextAttachment *attachment = [text attribute:NSAttachmentAttributeName atIndex:index effectiveRange:&range];
         
-        if (attachment)
-            [newIndices addObject:@(index)];
+        if (attachment) [newIndices addObject:@(index)];
         
         index++;
     }
     
     //To counter a strange glitch in which the last attachment is duplicated
-    if (newIndices.count > 1)
-        [newIndices removeLastObject];
+    if (newIndices.count > 1) [newIndices removeLastObject];
     
     _attachmentsIndices = newIndices;
 }
 
 //Idea of looping through, useful code: http://www.dejal.com/blog/2007/11/cocoa-custom-attachment-text-view
 - (void)textStorageWillProcessEditing:(NSNotification *)note {
-    NSMutableArray *attachments = [[NSMutableArray alloc] init];
-    NSMutableArray *images = [[NSMutableArray alloc] init];
+    NSMutableArray *attachments = [NSMutableArray new];
+    NSMutableArray *images = [NSMutableArray new];
     
     NSAttributedString *text = _textView.textStorage;
     
@@ -83,11 +80,9 @@
     }
     
     //To counter a strange glitch in which the last attachment is duplicated
-    if (images.count > 1)
-        [images removeLastObject];
+    if (images.count > 1) [images removeLastObject];
     
-    if (attachments.count > 1)
-        [attachments removeLastObject];
+    if (attachments.count > 1) [attachments removeLastObject];
     
     _attachments = attachments.copy;
     _images = images.copy;
