@@ -53,19 +53,33 @@
     [super keyUp:theEvent];
 }
 
+- (BOOL)usingAutoLayout {
+    return self.enclosingScrollView.constraints.count;
+}
+
 - (void)didChangeText {
+    
     [self.layoutManager ensureLayoutForTextContainer:self.textContainer];
     
     //Get the correct sized NSRect for the text in the our text container
     NSRect newRect = [self.layoutManager usedRectForTextContainer:self.textContainer];
+    newRect.size.width = self.enclosingScrollView.frame.size.width;
     
     //If there's a height margin set, add it on to the height (of course!)
     if (_heightMargin) newRect.size.height += _heightMargin;
     
-    //Ensure that we doesn't start shrinking the width when you fill less than a line.
-    if ((_minimumWidth && newRect.size.width >= _minimumWidth) || (newRect.size.width >= self.frame.size.width)) {
-        //For some reason, I'm not sure why, we need to reference [[You are here] > superview > superview] to get to the our containing NSScrollView and set it's frameSize.
-        [self.superview.superview.animator setFrameSize:newRect.size];
+    if (self.usingAutoLayout && _flexibleEdgeConstraint) {
+        
+        float existingHeight = self.enclosingScrollView.frame.size.height;
+        float newHeight = newRect.size.height;
+        
+        float existingConstant = _flexibleEdgeConstraint.constant;
+        float newConstant = fabs((newHeight-existingHeight)-existingConstant);
+        
+        [_flexibleEdgeConstraint.animator setConstant:newConstant];
+        
+    } else {
+        [self.enclosingScrollView.animator setFrameSize:newRect.size];
     }
 }
 

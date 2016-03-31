@@ -14,8 +14,10 @@
 
 @property UInt16 actionKey;
 
-@property int minimumWidth;
 @property int heightMargin;
+
+@property IBOutlet NSLayoutConstraint *flexibleEdgeConstraint;
+
 
 //Action run on enter
 - (void)setAction:(SEL)theAction Sender:(id)sender;
