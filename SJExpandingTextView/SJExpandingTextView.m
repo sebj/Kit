@@ -78,7 +78,7 @@
         
         [_flexibleEdgeConstraint.animator setConstant:newConstant];
         
-    } else {
+    } else if (!self.usingAutoLayout) {
         [self.enclosingScrollView.animator setFrameSize:newRect.size];
     }
 }
