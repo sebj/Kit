@@ -1,8 +1,8 @@
-##Kit
+## Kit
 
 A collection of Objective-C classes and categories I've created whilst working on various projects. You may find something useful here..
 
-###Components
+### Components
 
 * **CIImage+NSImage**
 * **NSBezierPath+Additions** - Smooth an NSBezierPath, get all points
@@ -19,5 +19,5 @@ A collection of Objective-C classes and categories I've created whilst working o
 * **SJView** - use blocks for drawing, animate background changes, get an image from a view
 * **StatusItem** - a very simple custom NSStatusItem and view wrapper, allowing for easy subclassing and including delegate methods
 
-##Use
+## Use
 Share, make changes, use commercially if you wish. [Crediting "Seb Jachec"](https://sebj.me) would be nice, but is not necessary.
