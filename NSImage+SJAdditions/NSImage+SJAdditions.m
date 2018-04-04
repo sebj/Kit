@@ -107,7 +107,7 @@
     [newImage drawWithBlock:^(void){
         [bgColor set];
         NSRectFill((NSRect){.origin=NSZeroPoint, .size=newSize});
-        [theImage drawAtPoint:NSMakePoint((newSize.width-originalSize.width)/2, newSize.height-originalSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+        [theImage drawAtPoint:NSMakePoint((newSize.width-originalSize.width)/2, newSize.height-originalSize.height) fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1.0];
     }];
     
     return newImage;
@@ -128,7 +128,7 @@
         [t scaleXBy:-1 yBy:1];
         [t concat];
         
-        [self drawAtPoint:NSZeroPoint fromRect:(NSRect){.origin=NSZeroPoint, .size=selfSize} operation:NSCompositeSourceOver fraction:1.0];
+        [self drawAtPoint:NSZeroPoint fromRect:(NSRect){.origin=NSZeroPoint, .size=selfSize} operation:NSCompositingOperationSourceOver fraction:1.0];
     }];
     
     return flippedImage;
@@ -146,7 +146,7 @@
         [t scaleXBy:1 yBy:-1];
         [t concat];
         
-        [self drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0, 0, selfSize.width, selfSize.height) operation:NSCompositeSourceOver fraction:1.0];
+        [self drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0, 0, selfSize.width, selfSize.height) operation:NSCompositingOperationSourceOver fraction:1.0];
     }];
     
     return flippedImage;

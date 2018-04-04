@@ -50,7 +50,7 @@
             [NSColor.whiteColor set];
             NSRectFill(dstRect);
             
-            [_image drawInRect:_imageDrawBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+            [self->_image drawInRect:self->_imageDrawBounds fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
             
             return YES;
         }];
@@ -64,7 +64,7 @@
         
         NSImage *done = [self mask:statusImage Image:solidColor];
         
-        [done drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        [done drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
     }
 }
 

@@ -55,7 +55,7 @@
 }
 
 //Idea of looping through, useful code: http://www.dejal.com/blog/2007/11/cocoa-custom-attachment-text-view
-- (void)textStorageWillProcessEditing:(NSNotification *)note {
+- (void)textStorage:(NSTextStorage *)textStorage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
     NSMutableArray *attachments = [NSMutableArray new];
     NSMutableArray *images = [NSMutableArray new];
     
@@ -81,7 +81,6 @@
     
     //To counter a strange glitch in which the last attachment is duplicated
     if (images.count > 1) [images removeLastObject];
-    
     if (attachments.count > 1) [attachments removeLastObject];
     
     _attachments = attachments.copy;

@@ -9,7 +9,7 @@
 
 @interface NSImage (SJAdditions)
 
-- (void)drawWithBlock:(void (^)())theDrawBlock;
+- (void)drawWithBlock:(void (^)(void))theDrawBlock;
 
 + (NSImage *)blendImage:(NSImage *)theTopImage Over:(NSImage *)theBottomImage BlendMode:(CGBlendMode)theBlendMode Alpha:(float)theAlpha;
 

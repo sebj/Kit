@@ -5,6 +5,7 @@
 //  Copyright (c) 2015 Sebastian Jachec. All rights reserved.
 
 #import "SelectorTimer.h"
+#include <mach/mach_time.h>
 
 @implementation TestObject
 

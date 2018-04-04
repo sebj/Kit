@@ -8,8 +8,8 @@
 /** A view that allows blocks for drawing, can fade between background gradients and can return an image of itself */
 @interface SJView : NSView
 
-@property (strong) void(^drawBlock)();
-@property (strong) void(^baseDrawBlock)();
+@property (strong) void(^drawBlock)(void);
+@property (strong) void(^baseDrawBlock)(void);
 
 @property (readonly, getter = image) NSImage *image;
 
