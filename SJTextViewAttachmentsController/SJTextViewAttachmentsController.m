@@ -28,6 +28,8 @@
 
 #pragma mark -
 
+// Rough implementation.
+// Probably want to switch this out for a delegate method or something else depending on your needs
 - (BOOL)isImage:(NSString*)aPathExtension {
     NSArray *imageExtensions = @[@"tif",@"tiff",@"jpg",@"jpeg",@"jp2",@"exr",@"pdf",@"png",@"nef",@"raw",@"gif",@"psd",@"psb"];
     return [imageExtensions containsObject:aPathExtension.lowercaseString];
@@ -61,8 +63,6 @@
     
     NSAttributedString *text = _textView.textStorage;
     
-    if (note.object != text) return;
-    
     NSRange effectiveRange = NSMakeRange(0, 0);
     
     while (NSMaxRange(effectiveRange) < text.length) {
@@ -75,7 +75,7 @@
                 [images addObject:theImage];
             }
             
-            [attachments addObject:attachment.fileWrapper];
+            [attachments addObject: attachment.fileWrapper];
         }
     }
     

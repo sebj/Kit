@@ -58,7 +58,6 @@
 }
 
 - (void)didChangeText {
-    
     [self.layoutManager ensureLayoutForTextContainer:self.textContainer];
     
     //Get the correct sized NSRect for the text in the our text container

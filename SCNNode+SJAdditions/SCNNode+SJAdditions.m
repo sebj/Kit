@@ -91,14 +91,15 @@
 
 #pragma mark - Contains 3D Vector?
 
+/**
+ * Check whether a vector lies within bounds. Very rough implementation.
+ */
 - (BOOL)containsVector:(SCNVector3)aVector withZMargin:(NSUInteger)zMargin {
     NSRect bounds = self.planeBounds;
     
     if (!NSIsEmptyRect(bounds)) {
         if ((aVector.x >= bounds.origin.x && aVector.x <= bounds.origin.x+bounds.size.width) &&
             (aVector.y >= bounds.origin.y && aVector.y <= bounds.origin.y+bounds.size.height)) {
-            //Vector is "inside"/hitting, 2D-wise.
-            //What about 3D?
             
             if (self.geometry.class == SCNBox.class) {
                 SCNBox *geometry = (SCNBox*)self.geometry;

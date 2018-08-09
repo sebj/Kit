@@ -1,6 +1,10 @@
 ## Kit
 
-A collection of Objective-C classes and categories I've created whilst working on various projects. You may find something useful here..
+A collection of old Objective-C classes and categories that may prove to be useful starting points, or inspiration.
+
+Most categories could easily be converted to Swift extensions.
+
+Some classes contain rough implementations, and could be adapted to receive an interface as a constructor parameter or use a delegate for some functionality.
 
 ### Components
 
@@ -12,7 +16,6 @@ A collection of Objective-C classes and categories I've created whilst working o
 * **SCNNode+SJAdditions**
 * **SelectorTimer**
 * **SJACOReader** - read Adobe .aco swatch files and return every color in hex format
-* **SJAddressBookAccessor**
 * **SJADNShareController** - Add App.net to the Mountain Lion share menu in your app, or use it standalone to share
 * **SJExpandingTextView** - a vertically expanding NSTextView, similar to Messages and other chat apps
 * **SJTextViewAttachmentsController** - get all files/images dragged into an NSTextview
